@@ -4,8 +4,8 @@ var Home = React.createClass({
     render: function(){
         return (
             <div>
-                <h2>Hello World!</h2>
-                <p>Simple static component with not special content at all.</p>
+                <h2>RIA-Developmnt with javascript</h2>
+                <p>bla blab bla</p>
             </div>
         );
     }
