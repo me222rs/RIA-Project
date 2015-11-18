@@ -5,10 +5,12 @@ in our case Home and Hero.
 
 var Redux = require('redux'),
     doStuffReducer = require('./reducers/doStuff'),
+	quizReducer = require('./reducers/quiz'),
     initialState = require('./initialstate');
 
 var reducers = Redux.combineReducers({
-    doStuff: doStuffReducer
+    doStuff: doStuffReducer,
+	quiz: quizReducer
 });
 
 var store = Redux.createStore(reducers, initialState());

@@ -15,7 +15,17 @@ module.exports = function(){
 			currentSrcButton2: "https://secure.royalquiz.com/mq/images/lvvrcfqc.jpg",
 			currentSrcButton3: "https://secure.royalquiz.com/mq/images/lvvrcfqc.jpg",
 			currentSrcButton4: "https://secure.royalquiz.com/mq/images/lvvrcfqc.jpg"
-        
-		}	
+		},
+			quiz:{
+				questionValue: "",
+				question: "How long is 5 minutes?",
+				checkedBox: "",
+				questionCount: 0,
+				optionCount: 0,
+				option1: "3 minutes",
+				option2: "1 minutes",
+				option3: "5 minutes",
+				answerCount: 0
+			}
     }
 };

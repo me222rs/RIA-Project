@@ -22,6 +22,8 @@ var doStuff = React.createClass({
 					<button onClick={this.props.doMoreStuff}>Reset</button>
 					
                 </p>
+			
+				
 				
 				<h2>Testing</h2>
 				<input type="image" src={this.props.currentSrcButton1} id="button1" alt="Submit" width="48" height="48" onClick={this.props.button1} />

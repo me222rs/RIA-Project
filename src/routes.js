@@ -9,10 +9,12 @@ var React = require('react'),
     Wrapper = require('./components/wrapper'),
     Home = require('./components/home'),
     DoStuff = require('./components/dostuff');
+	Quiz = require('./components/quiz');
 
 module.exports = (
     <Route path="/" component={Wrapper}>
         <IndexRoute component={Home} />
 		<Route path="/dostuff" component={DoStuff}/>
+		<Route path="/quiz" component={Quiz}/>
     </Route>
 );
