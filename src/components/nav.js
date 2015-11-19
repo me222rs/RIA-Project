@@ -7,8 +7,8 @@ var Nav = React.createClass({
             <div id="nav">
                 <ul>
                     <li><Link to="/">Home</Link></li>
-					<li><Link to="/dostuff">Do stuff</Link></li>
-					<li><Link to="/quiz">Quiz</Link></li>
+          					<li><Link to="/dostuff">Do stuff</Link></li>
+          					<li><Link to="/quiz">Quiz</Link></li>
                 </ul>
                 <div className="clear"/>
             </div>

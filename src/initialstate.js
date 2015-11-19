@@ -25,7 +25,9 @@ module.exports = function(){
 				option1: "3 minutes",
 				option2: "1 minutes",
 				option3: "5 minutes",
-				answerCount: 0
+				answerCount: 0,
+        points: 0,
+        multiplier: 1
 			}
     }
 };

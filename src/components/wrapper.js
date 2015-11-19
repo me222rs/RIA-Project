@@ -5,7 +5,7 @@ var Wrap = React.createClass({
     render: function(){
         return (
             <div id="wrap">
-                <h1>React, React Router &amp; Redux example</h1>
+                <h1>RIA-Project</h1>
                 <Nav/>
                 {this.props.children}
             </div>
