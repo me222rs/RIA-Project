@@ -6,15 +6,10 @@ var QuizReducer = function(state, action){
         case 'NEXT_QUESTION':
 
         		var questions = ["Do you like cookies?", "Who is the prime minister of Germany?", "What is the largest?", "What was the answer of the third question?"];
-        		var options = ["Yes", "No", "Microwave", "Mickey Mouse", "Angela Merkel", "David Cameron", "Earth", "Jupiter", "Your mom", "This one", "This one", "This one"];
+        		var options = ["Yes", "No", "What is a cookie?", "Barrack Obama", "Angela Merkel", "David Cameron", "Earth", "Jupiter", "Milky way galaxy", "This one", "This one", "This one"];
         		var answers = ["A3", "A1", "A2", "A3", "A2"];
 
             if(answers[newState.answerCount] === action.answer) {
-              $("multiplier").animate({
-                left: '250px',
-                height: '150px',
-                width: '150px'
-              });
               //Next answer in array
       				newState.answerCount += 1;
 
