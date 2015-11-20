@@ -27,7 +27,9 @@ module.exports = function(){
 				option3: "5 minutes",
 				answerCount: 0,
         points: 0,
-        multiplier: 1
+        multiplier: 1,
+        choice:"A3",
+        mute: "Mute sound"
 			}
     }
 };

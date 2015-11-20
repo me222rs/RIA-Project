@@ -23,13 +23,13 @@ module.exports = {
     },
 		button4: function(){
         return {type: 'BUTTON4'};
-    },	
-		quiz: function(){
-        return {type: 'NEXT_QUESTION'};
-    },	
+    },
+		quiz: function(answer){
+        return {type: 'NEXT_QUESTION', answer:answer};
+    },
 		question: function(){
         return {type: 'QUESTION'};
     }
-	
-	
+
+
 };
