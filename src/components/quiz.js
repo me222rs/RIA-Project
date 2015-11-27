@@ -23,7 +23,7 @@ var quiz = React.createClass({
         return (
 
             <div id="content">
-              <audio id="soundtrack"><source src="Sound/theme.mp3" type="audio/mpeg"/></audio>
+              <audio autoPlay="true" id="soundtrack"><source src="Sound/theme.mp3" type="audio/mpeg"/></audio>
               <button id="muteSoundButton" onClick={this.onMuteSound}>{this.props.mute}</button>
                 <h2>Quiz</h2>
                 <div id="instructions">

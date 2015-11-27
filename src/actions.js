@@ -4,6 +4,8 @@ These actions are imported by Redux-aware components who need them, in our case 
 */
 
 var constants = require("./constants");
+//Firebase = require("firebase");
+//quotesRef = new Firebase("https://intense-torch-2681.firebaseio.com/").child("question");
 
 module.exports = {
 	doStuff: function(){

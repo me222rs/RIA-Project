@@ -29,7 +29,8 @@ module.exports = function(){
         points: 0,
         multiplier: 1,
         choice:"A3",
-        mute: "Mute sound"
+        mute: "Mute sound",
+        data: null
 			}
     }
 };
