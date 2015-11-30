@@ -109,3 +109,6 @@ body{
 #buttPic{
 		background-image: url("../Images/mute.png");
 }
+#buttonNext{
+	visibility:hidden;
+}

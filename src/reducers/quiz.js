@@ -1,26 +1,14 @@
 var initialState = require('./../initialstate');
-
-
 var QuizReducer = function(state, action){
     var newState = Object.assign({}, state);
+
+
     switch(action.type){
         case 'NEXT_QUESTION':
+        console.log("Question before if: " + newState.questionCount);
+        //console.log("Answer before if: " + newState.answerCount);
 
-
-        		//var questions = ["Do you like cookies?", "Who is the prime minister of Germany?", "What is the largest?", "What was the answer of the third question?"];
-        		//var options = ["Yes", "No", "What is a cookie?", "Barrack Obama", "Angela Merkel", "David Cameron", "Earth", "Jupiter", "Milky way galaxy", "This one", "This one", "This one"];
-        		//var answers = ["A3", "A1", "A2", "A3", "A2"];
-            var startQuestion = {answerID: "A3"};
-            var question1 = { question: "Who is the prime minister in Germany?", answer: "Angela Merkel", options: ["Angela Merkel","Barack Obama", "David Cameron"], answerID: "A1"};
-            var question2 =  { question: "Do you like cookies?", answer: "Yes", options: ["Yes","No", "Dont know"], answerID: "A1"};
-            var questionArray = [];
-            questionArray.push(startQuestion);
-            questionArray.push(question1);
-            questionArray.push(question2);
-
-            if(questionArray[newState.answerCount].answerID === action.answer){
-              //Next answer in array
-      				newState.answerCount += 1;
+            if(newState.questionArray[newState.questionCount - 1].answerID === action.answer){
 
               //Calculating points
               newState.points += 10 * newState.multiplier;
@@ -30,31 +18,72 @@ var QuizReducer = function(state, action){
       				newState.questionValue = "Correct!";
 
                   //Next question in array
-                  newState.questionCount += 1;
-          				newState.question = questionArray[newState.questionCount].question;
+                  console.log("Question: " + newState.questionCount);
+                  console.log("Length: " + newState.questionArray.length);
+                  if(newState.questionArray.length- 1 >= newState.questionCount){
+              				newState.question = newState.questionArray[newState.questionCount].question;
 
-                  newState.optionCount = 0;
-                  //Next three answers in array
-                  newState.option1 = questionArray[newState.questionCount].options[newState.optionCount];
-          				newState.optionCount += 1;
+                      newState.optionCount = 0;
+                      //Next three answers in array
+                      newState.option1 = newState.questionArray[newState.questionCount].options[newState.optionCount];
+              				newState.optionCount += 1;
 
-                  newState.option2 = questionArray[newState.questionCount].options[newState.optionCount];
-          				newState.optionCount += 1;
+                      newState.option2 = newState.questionArray[newState.questionCount].options[newState.optionCount];
+              				newState.optionCount += 1;
 
-                  newState.option3 = questionArray[newState.questionCount].options[newState.optionCount];
-          				newState.optionCount += 1;
+                      newState.option3 = newState.questionArray[newState.questionCount].options[newState.optionCount];
+              				newState.optionCount += 1;
 
+                      newState.questionCount += 1;
+                    }
+                    else{
+                        newState.questionValue = "Well done! You got " + newState.points + " points";
+                        document.getElementById("buttonNext").style.visibility = "hidden";
+                        document.getElementById("buttonStart").style.visibility = "hidden";
+                    }
       			}
       			else{
               newState.points -= 10;
               newState.multiplier = 1;
       				newState.questionValue = "Wrong!";
       			}
-
             return newState;
+                case 'DO_STUFF':
+                newState.questionArray = shuffle(newState.questionArray);
+                    document.getElementById("buttonStart").style.visibility = "hidden";
+                    document.getElementById("buttonNext").style.visibility = "visible";
+                    newState.question = newState.questionArray[newState.questionCount - 1].question;
+
+                    newState.optionCount = 0;
+                    //Next three answers in array
+                    newState.option1 = newState.questionArray[newState.questionCount - 1].options[newState.optionCount];
+                    newState.optionCount += 1;
+
+                    newState.option2 = newState.questionArray[newState.questionCount - 1].options[newState.optionCount];
+                    newState.optionCount += 1;
+
+                    newState.option3 = newState.questionArray[newState.questionCount - 1].options[newState.optionCount];
+                    newState.optionCount += 1;
+                return newState;
         default:
             return state || initialState().quiz;
     }
 };
+
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex ;
+
+  while (0 !== currentIndex) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+
+
 
 module.exports = QuizReducer;

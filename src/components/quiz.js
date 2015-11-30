@@ -5,10 +5,22 @@ var React = require('react'),
 
 var quiz = React.createClass({
     propTypes: {
-        quiz: ptypes.func.isRequired,
-		change: ptypes.func.isRequired
+          doStuff: ptypes.func.isRequired,
+          quiz: ptypes.func.isRequired,
+		      change: ptypes.func.isRequired
     },
     getInitialState: function() {
+      var startQuestion = {question: "blabla?", answer: "bla", options: ["blabla","blablabla", "bla"], answerID: "A3"};
+      var question1 = { question: "Who is the president if the United States?", answer: "Barack Obama", options: ["Angela Merkel","Barack Obama", "David Cameron"], answerID: "A2"};
+      var question2 =  { question: "Do you like cookies?", answer: "Yes", options: ["Yes","No", "Dont know"], answerID: "A1"};
+      var questionArray = [];
+
+      this.props.questionArray = [];
+      this.props.questionArray.push(startQuestion);
+      this.props.questionArray.push(question1);
+      this.props.questionArray.push(question2);
+
+
       return { answer: "A3" }
     },
     onOptionChanged: function(e) {
@@ -18,6 +30,7 @@ var quiz = React.createClass({
       //document.getElementById("soundtrack").volume=0.1;
         document.getElementById("soundtrack").muted = true;
     },
+
     render: function(){
 
         return (
@@ -51,8 +64,8 @@ var quiz = React.createClass({
                     					<input type="radio" checked={this.state.answer === "A1"} onChange={this.onOptionChanged} name="q1" id="A1" value="A1"/>{this.props.option1}
                     					<input type="radio" checked={this.state.answer === "A2"} onChange={this.onOptionChanged} name="q1" id="A2" value="A2"/>{this.props.option2}
                     					<input type="radio" checked={this.state.answer === "A3"} onChange={this.onOptionChanged} name="q1" id="A3" value="A3"/>{this.props.option3}
-
-                              <button onClick={this.props.quiz.bind(null, this.state.answer)}>Next question</button>
+                              <button id="buttonStart" onClick={this.props.doStuff}>Start</button>
+                              <button id="buttonNext" onClick={this.props.quiz.bind(null, this.state.answer)}>Next question</button>
                         </p>
                   </div>
             </div>
@@ -72,6 +85,9 @@ var mapDispatchToProps = function(dispatch){
         },
 		change: function(){
             dispatch(actions.change());
+        },
+    doStuff: function(){
+            dispatch(actions.doStuff());
         }
     }
 };
