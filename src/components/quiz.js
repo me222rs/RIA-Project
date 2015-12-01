@@ -43,7 +43,9 @@ var quiz = React.createClass({
         return (
 
             <div id="content">
-
+              <ReactCSSTransitionGroup transitionName="switch" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+                  <div className={className} onClick={this.toggleOnOff}>{text}</div>
+              </ReactCSSTransitionGroup>
               <audio autoPlay="true" id="soundtrack"><source src="Sound/theme.mp3" type="audio/mpeg"/></audio>
               <button id="muteSoundButton" onClick={this.onMuteSound}>{this.props.mute}</button>
                 <h2>Quiz</h2>
@@ -82,7 +84,7 @@ var quiz = React.createClass({
 
     }
 });
-
+//React.render(document.getElementById("switch"));
 
 var mapStateToProps = function(state){
     return state.quiz;

@@ -124,8 +124,31 @@ body{
     cursor: pointer;
     color: #fff;
     background-color: #000;
+    /* Define transition on the "opacity" property. */
+    transition: opacity 0.5s ease-in;
 }
 .button.on {
     color: #00FF00;
     background-color: #006600;
+}
+
+.button.switch-enter {
+    opacity: 0.01;
+}
+.button.switch-enter.switch-enter-active {
+    opacity: 1.0;
+}
+.button.switch-leave {
+    /* Completely hide the button while it's being animated and before it's removed from the DOM. */
+    visibility: hidden;
+    height: 0px;
+    width: 0px;
+
+    /* Starting opacity */
+    opacity: 1.0;
+}
+.button.switch-leave.switch-leave-active {
+    /* Ending opacity:
+    Trigger opacity change so the "transitionend" event will fire, causing React to remove from the DOM. */
+    opacity: 0;
 }
