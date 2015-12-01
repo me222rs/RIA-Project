@@ -31,7 +31,8 @@ module.exports = function(){
         multiplier: 1,
         choice:"A3",
         mute: "Mute sound",
-        data: null
+        data: null,
+        flipped: false
 			}
     }
 };

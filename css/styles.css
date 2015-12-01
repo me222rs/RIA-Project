@@ -112,3 +112,20 @@ body{
 #buttonNext{
 	visibility:hidden;
 }
+.button {
+    display: block;
+    height: 100px;
+    width: 100px;
+    border: 1px solid #aaa;
+    border-radius: 25px;
+    font: bold 20px Helvetica, Arial, sans-serif;
+    text-align: center;
+    line-height: 100px;
+    cursor: pointer;
+    color: #fff;
+    background-color: #000;
+}
+.button.on {
+    color: #00FF00;
+    background-color: #006600;
+}
