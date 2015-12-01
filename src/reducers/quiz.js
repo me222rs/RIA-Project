@@ -1,4 +1,5 @@
 var initialState = require('./../initialstate');
+var _ = require('lodash');
 var QuizReducer = function(state, action){
     var newState = Object.assign({}, state);
 
@@ -49,7 +50,7 @@ var QuizReducer = function(state, action){
       			}
             return newState;
                 case 'DO_STUFF':
-                newState.questionArray = shuffle(newState.questionArray);
+                newState.questionArray = _.shuffle(newState.questionArray);
                     document.getElementById("buttonStart").style.visibility = "hidden";
                     document.getElementById("buttonNext").style.visibility = "visible";
                     newState.question = newState.questionArray[newState.questionCount - 1].question;
@@ -70,19 +71,7 @@ var QuizReducer = function(state, action){
     }
 };
 
-function shuffle(array) {
-  var currentIndex = array.length, temporaryValue, randomIndex ;
 
-  while (0 !== currentIndex) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
-
-  return array;
-}
 
 
 
