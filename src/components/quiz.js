@@ -2,7 +2,6 @@ var React = require('react'),
     ptypes = React.PropTypes,
     ReactRedux = require('react-redux'),
     actions = require('../actions');
-  var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
 
 var quiz = React.createClass({
     propTypes: {
@@ -11,20 +10,26 @@ var quiz = React.createClass({
 		      change: ptypes.func.isRequired
     },
     getInitialState: function() {
-      return {on: false};
+        return {on: false, mute: true};
     },
     toggleOnOff: function(e) {
+
         this.setState({on: !this.state.on});
+
     },
     onOptionChanged: function(e) {
         this.setState({ answer: e.currentTarget.value });
     },
     onMuteSound: function(){
       //document.getElementById("soundtrack").volume=0.1;
-        document.getElementById("soundtrack").muted = true;
+        this.setState({mute: !this.state.mute});
+        console.log(this.state.mute);
+        document.getElementById("soundtrack").muted = this.state.mute;
+        //this.setState({mute: !this.state.on});
     },
 
     render: function(){
+      var mute = this.state.mute ? "Mute" : "Play";
       var text = this.state.on ? "ON" : "OFF";
       var className = this.state.on ? "on" : "";
       className += " button";
@@ -33,13 +38,12 @@ var quiz = React.createClass({
         return (
 
             <div id="content">
-              <ReactCSSTransitionGroup transitionName="switch" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
-                  <div className={className} onClick={this.toggleOnOff}>{text}</div>
-              </ReactCSSTransitionGroup>
+
+
               <audio autoPlay="true" id="soundtrack"><source src="Sound/theme.mp3" type="audio/mpeg"/></audio>
-              <button id="muteSoundButton" onClick={this.onMuteSound}>{this.props.mute}</button>
+              <button id="muteSoundButton" onClick={this.onMuteSound}>{mute}</button>
                 <h2>Quiz</h2>
-                <div id="instructions">
+                <div id="instructions" className={className} onClick={this.toggleOnOff}>
                     <p>
                       If you pick the correct answer you will get 10 points and if you pick the wrong answer you will lose 10 points.
                       For each correct answer your multiplier will increase which means more points from each question.
