@@ -11,16 +11,6 @@ var quiz = React.createClass({
 		      change: ptypes.func.isRequired
     },
     getInitialState: function() {
-      var startQuestion = {question: "blabla?", answer: "bla", options: ["blabla","blablabla", "bla"], answerID: "A3"};
-      var question1 = { question: "Who is the president if the United States?", answer: "Barack Obama", options: ["Angela Merkel","Barack Obama", "David Cameron"], answerID: "A2"};
-      var question2 =  { question: "Do you like cookies?", answer: "Yes", options: ["Yes","No", "Dont know"], answerID: "A1"};
-      var questionArray = [];
-
-      this.props.questionArray = [];
-      this.props.questionArray.push(startQuestion);
-      this.props.questionArray.push(question1);
-      this.props.questionArray.push(question2);
-
       return {on: false};
     },
     toggleOnOff: function(e) {

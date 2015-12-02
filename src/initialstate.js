@@ -8,6 +8,12 @@ It returns a function instead of an object to make sure no one can change the in
 var C = require("./constants");
 
 module.exports = function(){
+
+  //Question objects
+  var startQuestion = {question: "blabla?", answer: "bla", options: ["blabla","blablabla", "bla"], answerID: "A3"};
+  var question1 = { question: "Who is the president if the United States?", answer: "Barack Obama", options: ["Angela Merkel","Barack Obama", "David Cameron"], answerID: "A2"};
+  var question2 =  { question: "Do you like cookies?", answer: "Yes", options: ["Yes","No", "Dont know"], answerID: "A1"};
+
     return {
         doStuff: {
             currentValue: "",
@@ -18,7 +24,7 @@ module.exports = function(){
 		},
 			quiz:{
 				questionValue: "",
-        questionArray: [],
+        questionArray: [startQuestion, question1, question2],
 				question: "",
 				checkedBox: "",
 				questionCount: 1,
