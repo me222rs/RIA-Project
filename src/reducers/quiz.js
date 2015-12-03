@@ -17,7 +17,7 @@ var QuizReducer = function (state, action) {
                 //Sets the correct variable
                 newState.questionValue = "Correct! " + ((10 - questionTime)+(10 * (newState.multiplier-1))) + " points.";
                 newState.totalTimeScore += 10 - questionTime;
-
+                newState.startTime = new Date().getTime();
                 //Next question in array
                 if (newState.questionArray.length - 1 >= newState.questionCount) {
                     newState.currentQuestion = newState.questionArray[newState.questionCount];

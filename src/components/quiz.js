@@ -13,11 +13,10 @@ var quiz = React.createClass({
         return {on: false, playMusic: true, answer: ''};
     },
     toggleOnOff: function (e) {
-
         this.setState({on: !this.state.on});
-
     },
     onOptionChanged: function (e) {
+        this.nextAnimation();
         this.setState({answer: e.currentTarget.value});
     },
     onMuteSound: function () {
@@ -27,7 +26,15 @@ var quiz = React.createClass({
         document.getElementById("soundtrack").muted = this.state.playMusic;
         //this.setState({mute: !this.state.on});
     },
-
+    nextAnimation: function (e) {
+        var el = document.getElementById('buttonNext');
+        if(el) {
+          el.className += el.className ? ' on' : 'buttonNext';
+        }
+        setTimeout(function() {
+            el.className = "buttonNext";
+        }, 1000);
+    },
     render: function () {
         var muteText = this.state.playMusic ? "Mute" : "Play";
         var instructionClass = this.state.on ? "on" : "";
@@ -35,21 +42,20 @@ var quiz = React.createClass({
         //<div className={className} onClick={this.toggleOnOff}>{text}</div>
         var options = this.props.currentQuestion.options;
         var radios = options.map(function (option, index) {
-            return (<span><input type="radio" checked={this.state.answer === "A" + (index + 1)}
+            return (<span><input type="radio" onClick={this.nextAnimation} checked={this.state.answer === "A" + (index + 1)}
                                  onChange={this.onOptionChanged} name="q1" id={"A" + (index + 1)}
                                  value={"A" + (index + 1)}/> {option}</span>)
         }.bind(this));
         return (
 
             <div id="content">
-
-
                 <audio autoPlay={this.state.playMusic} id="soundtrack">
                     <source src="Sound/theme.mp3" type="audio/mpeg"/>
                 </audio>
                 <button id="muteSoundButton" onClick={this.onMuteSound}>{muteText}</button>
                 <h2>Quiz</h2>
                 <div id="instructions" className={instructionClass} onClick={this.toggleOnOff}>
+
                     <p>
                         If you pick the correct answer you will get 10 points and if you pick the wrong answer you will
                         lose 10 points.
