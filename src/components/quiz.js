@@ -10,7 +10,7 @@ var quiz = React.createClass({
         change: ptypes.func.isRequired
     },
     getInitialState: function () {
-        return {on: false, playMusic: false, answer: ''};
+        return {on: false, playMusic: true, answer: ''};
     },
     toggleOnOff: function (e) {
 
@@ -66,6 +66,8 @@ var quiz = React.createClass({
                 <div id="multiplierandpoints">
                     <p id="points">Points: {this.props.points}</p>
                     <p id="multiplier">Multiplier x{this.props.multiplier}</p>
+                    <p id="timeScore">Time score: {this.props.totalTimeScore}</p>
+                    <p id="totalScore">Total: {this.props.totalTimeScore + this.props.points}</p>
                 </div>
 
 

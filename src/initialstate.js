@@ -41,7 +41,10 @@ module.exports = function () {
             choice: "A3",
             mute: "Mute sound",
             data: null,
-            flipped: false
+            flipped: false,
+            startTime: 0,
+            endTime: 0,
+            totalTimeScore: 0
         }
     }
 };
