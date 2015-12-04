@@ -42,9 +42,9 @@ var quiz = React.createClass({
         //<div className={className} onClick={this.toggleOnOff}>{text}</div>
         var options = this.props.currentQuestion.options;
         var radios = options.map(function (option, index) {
-            return (<span><input type="radio" onClick={this.nextAnimation} checked={this.state.answer === "A" + (index + 1)}
+            return (<div><input type="radio" onClick={this.nextAnimation} checked={this.state.answer === "A" + (index + 1)}
                                  onChange={this.onOptionChanged} name="q1" id={"A" + (index + 1)}
-                                 value={"A" + (index + 1)}/> {option}</span>)
+                                 value={"A" + (index + 1)}/> {option}</div>)
         }.bind(this));
         return (
 
@@ -54,16 +54,6 @@ var quiz = React.createClass({
                 </audio>
                 <button id="muteSoundButton" onClick={this.onMuteSound}>{muteText}</button>
                 <h2>Quiz</h2>
-                <div id="instructions" className={instructionClass} onClick={this.toggleOnOff}>
-
-                    <p>
-                        If you pick the correct answer you will get 10 points and if you pick the wrong answer you will
-                        lose 10 points.
-                        For each correct answer your multiplier will increase which means more points from each
-                        question.
-                        The multiplier will be reset if you pick an incorrect answer.
-                    </p>
-                </div>
 
                 <div id="message">
                     <p>{this.props.questionValue}</p>
@@ -77,14 +67,13 @@ var quiz = React.createClass({
                 </div>
 
 
+
                 <div id="options">
+                    <button id="buttonStart" onClick={this.props.doStuff}>Start</button>
                     <p>{this.props.currentQuestion.question}</p>
-                    <p>
                         {radios}
-                        <button id="buttonStart" onClick={this.props.doStuff}>Start</button>
                         <button id="buttonNext" onClick={this.props.quiz.bind(null, this.state.answer)}>Next question
                         </button>
-                    </p>
                 </div>
             </div>
         );

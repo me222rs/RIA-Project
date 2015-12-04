@@ -17,7 +17,7 @@ module.exports = function () {
                 "https://secure.royalquiz.com/mq/images/lvvrcfqc.jpg"],
         },
         quiz: {
-            questionValue: "",
+            questionValue: "If you pick the correct answer you will get 10 points and if you pick the wrong answer you will lose 10 points.For each correct answer your multiplier will increase which means more points from each question.The multiplier will be reset if you pick an incorrect answer.",
             questionArray: [{
                 question: "blabla?",
                 answer: "bla",

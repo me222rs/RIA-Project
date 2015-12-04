@@ -9,7 +9,7 @@ var QuizReducer = function (state, action) {
             console.log("Question before if: " + newState.questionCount);
             if (newState.questionArray[newState.questionCount - 1].answerID === action.answer) {
                 //Calculating points
-
+                document.getElementById("message").style.backgroundColor = "green";
                 var questionTime = Math.floor((new Date().getTime() - newState.startTime) / 1000);
                 newState.points += 10 * newState.multiplier;
                 newState.multiplier += 1;
@@ -25,19 +25,29 @@ var QuizReducer = function (state, action) {
                     newState.questionCount += 1;
                 }
                 else {
+                    document.getElementById("message").style.backgroundColor = "blue";
                     var totalScore = newState.points + newState.totalTimeScore;
                     newState.questionValue = "Well done! You got " + totalScore + " points!";
                     document.getElementById("buttonNext").style.visibility = "hidden";
-                    document.getElementById("buttonStart").style.visibility = "hidden";
+                    document.getElementById("buttonStart").style.visibility = "visible";
                 }
             }
             else {
+                document.getElementById("message").style.backgroundColor = "red";
                 newState.points -= 10;
                 newState.multiplier = 1;
                 newState.questionValue = "Wrong!";
             }
             return newState;
         case 'DO_STUFF':
+            newState.points = 0;
+            newState.startTime = 0;
+            newState.endTime = 0;
+            newState.questionCount = 1;
+            newState.multiplier = 1;
+            newState.totalTimeScore = 0;
+
+
             newState.startTime = new Date().getTime();
             newState.questionArray = _.shuffle(newState.questionArray);
             document.getElementById("buttonStart").style.visibility = "hidden";
