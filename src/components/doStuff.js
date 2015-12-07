@@ -12,24 +12,34 @@ var doStuff = React.createClass({
 		button3: ptypes.func.isRequired,
 		button4: ptypes.func.isRequired
     },
+    showScores: function(){
+
+      var array = this.props.highscoreArray;
+      for (i=0;i<array.length;i++)
+      {
+          document.getElementById("scores").appendChild(array[i+1].name + " " + array[i+1].score);
+      }
+    },
+
     render: function(){
         return (
             <div>
-                <h2>Do stuff</h2>
+                <h2>Highscore</h2>
                 <p>Message: {this.props.currentValue}</p>
                 <p>
                     <button onClick={this.props.doStuff}>Hello World!</button>
-					<button onClick={this.props.doMoreStuff}>Reset</button>
-					
+					          <button onClick={this.props.doMoreStuff}>Reset</button>
+
                 </p>
-			
-				
-				
-				<h2>Testing</h2>
-				<input type="image" src={this.props.currentSrcButton1} id="button1" alt="Submit" width="48" height="48" onClick={this.props.button1} />
-				<input type="image" src={this.props.currentSrcButton2} id="button2" alt="Submit" width="48" height="48" onClick={this.props.button2} />
-				<input type="image" src={this.props.currentSrcButton3} id="button3" alt="Submit" width="48" height="48" onClick={this.props.button3} />
-				<input type="image" src={this.props.currentSrcButton4} id="button4" alt="Submit" width="48" height="48" onClick={this.props.button4} />
+
+
+
+        				<h2>Testing</h2>
+                <button onClick={this.showScores}>Show</button>
+                <div id="scores">
+
+                </div>
+
             </div>
         );
     }

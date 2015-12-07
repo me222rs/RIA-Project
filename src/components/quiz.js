@@ -35,6 +35,7 @@ var quiz = React.createClass({
             el.className = "buttonNext";
         }, 1000);
     },
+
     render: function () {
         var muteText = this.state.playMusic ? "Mute" : "Play";
         var instructionClass = this.state.on ? "on" : "";
@@ -49,6 +50,7 @@ var quiz = React.createClass({
         return (
 
             <div id="content">
+                <span id="timer"></span>
                 <audio autoPlay={this.state.playMusic} id="soundtrack">
                     <source src="Sound/theme.mp3" type="audio/mpeg"/>
                 </audio>
@@ -57,13 +59,15 @@ var quiz = React.createClass({
 
                 <div id="message">
                     <p>{this.props.questionValue}</p>
+                    <input id="postResult" type="text" name="name"/>
+                    <button id="postResultButton" onClick={this.props.doStuff}>Post</button>
                 </div>
 
                 <div id="multiplierandpoints">
                     <p id="points">Points: {this.props.points}</p>
                     <p id="multiplier">Multiplier x{this.props.multiplier}</p>
                     <p id="timeScore">Time score: {this.props.totalTimeScore}</p>
-                    <p id="totalScore">Total: {this.props.totalTimeScore + this.props.points}</p>
+                    <p value={this.props.totalTimeScore + this.props.points} id="totalScore">Total: {this.props.totalTimeScore + this.props.points}</p>
                 </div>
 
 

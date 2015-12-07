@@ -15,6 +15,7 @@ module.exports = function () {
                 "https://secure.royalquiz.com/mq/images/lvvrcfqc.jpg",
                 "https://secure.royalquiz.com/mq/images/lvvrcfqc.jpg",
                 "https://secure.royalquiz.com/mq/images/lvvrcfqc.jpg"],
+            highscoreArray: [],
         },
         quiz: {
             questionValue: "If you pick the correct answer you will get 10 points and if you pick the wrong answer you will lose 10 points.For each correct answer your multiplier will increase which means more points from each question.The multiplier will be reset if you pick an incorrect answer.",
@@ -33,6 +34,12 @@ module.exports = function () {
                 answer: "Yes",
                 options: ["Yes", "No", "Dont know"],
                 answerID: "A1"
+            },
+            {
+                question: "Which color is snow?",
+                answer: "Yellow",
+                options: ["Yellow", "White", "Red"],
+                answerID: "A2"
             }],
             currentQuestion: {options: []},
             questionCount: 1,
@@ -44,7 +51,10 @@ module.exports = function () {
             flipped: false,
             startTime: 0,
             endTime: 0,
-            totalTimeScore: 0
+            totalTimeScore: 0,
+            totalScore: 0,
+            correctInARow: 0,
+            wrongInARow: 0
         }
     }
 };

@@ -4,7 +4,15 @@ var DoStuffReducer = function(state, action){
     var newState = Object.assign({}, state);
     switch(action.type){
         case 'DO_STUFF':
-			newState.currentValue = "Hello World!";
+            var name = document.getElementById("postResult");
+            var score = document.getElementById("totalScore").value;
+            var highscoreArray = [];
+
+            var object = {name: name, score: score};
+            newState.highscoreArray.push(object);
+            //console.log(score);
+            console.log(newState.highscoreArray);
+
             return newState;
         case 'DO_MORE_STUFF':
 			newState.currentValue = "";

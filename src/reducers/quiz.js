@@ -8,6 +8,8 @@ var QuizReducer = function (state, action) {
         case 'NEXT_QUESTION':
             console.log("Question before if: " + newState.questionCount);
             if (newState.questionArray[newState.questionCount - 1].answerID === action.answer) {
+                newState.errorInARow = 0;
+                newState.correctInARow +=1;
                 //Calculating points
                 document.getElementById("message").style.backgroundColor = "green";
                 var questionTime = Math.floor((new Date().getTime() - newState.startTime) / 1000);
@@ -27,9 +29,13 @@ var QuizReducer = function (state, action) {
                 else {
                     document.getElementById("message").style.backgroundColor = "blue";
                     var totalScore = newState.points + newState.totalTimeScore;
+                    newState.totalScore = totalScore;
                     newState.questionValue = "Well done! You got " + totalScore + " points!";
                     document.getElementById("buttonNext").style.visibility = "hidden";
                     document.getElementById("buttonStart").style.visibility = "visible";
+
+                    document.getElementById("postResultButton").style.visibility = "visible";
+                    document.getElementById("postResult").style.visibility = "visible";
                 }
             }
             else {
@@ -37,6 +43,7 @@ var QuizReducer = function (state, action) {
                 newState.points -= 10;
                 newState.multiplier = 1;
                 newState.questionValue = "Wrong!";
+
             }
             return newState;
         case 'DO_STUFF':
