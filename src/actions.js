@@ -31,6 +31,9 @@ module.exports = {
     },
 		question: function(){
         return {type: 'QUESTION'};
+    },
+		cookie: function(){
+        return {type: 'COOKIE'};
     }
 
 

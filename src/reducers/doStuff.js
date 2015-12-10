@@ -1,17 +1,22 @@
 var initialState = require('./../initialstate');
 
+function getCookie(name) {
+  var regexp = new RegExp("(?:^" + name + "|;\s*"+ name + ")=(.*?)(?:;|$)", "g");
+  var result = regexp.exec(document.cookie);
+  return (result === null) ? null : result[1];
+}
+
+
 var DoStuffReducer = function(state, action){
     var newState = Object.assign({}, state);
     switch(action.type){
         case 'DO_STUFF':
-            var name = document.getElementById("postResult");
-            var score = document.getElementById("totalScore").value;
-            var highscoreArray = [];
+            var highscoreArray = document.cookie;
 
-            var object = {name: name, score: score};
-            newState.highscoreArray.push(object);
-            //console.log(score);
-            console.log(newState.highscoreArray);
+            var arr = getCookie('highscore');
+            //var arr = JSON.parse(json_str);
+
+            console.log(arr);
 
             return newState;
         case 'DO_MORE_STUFF':

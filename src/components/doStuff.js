@@ -3,6 +3,13 @@ var React = require('react'),
     ReactRedux = require('react-redux'),
     actions = require('../actions');
 
+
+    function getCookie(name) {
+      var regexp = new RegExp("(?:^" + name + "|;\s*"+ name + ")=(.*?)(?:;|$)", "g");
+      var result = regexp.exec(document.cookie);
+      return (result === null) ? null : result[1];
+    }
+
 var doStuff = React.createClass({
     propTypes: {
         doStuff: ptypes.func.isRequired,
@@ -13,15 +20,27 @@ var doStuff = React.createClass({
 		button4: ptypes.func.isRequired
     },
     showScores: function(){
-
-      var array = this.props.highscoreArray;
-      for (i=0;i<array.length;i++)
-      {
-          document.getElementById("scores").appendChild(array[i+1].name + " " + array[i+1].score);
-      }
+      //Get cookie and display the highscores
+      //var json_str = getCookie('mycookie');
+      //var arr = JSON.parse(json_str);
+      //var array = this.props.highscoreArray;
+      //for (i=0;i<array.length;i++)
+      //{
+      //    document.getElementById("scores").appendChild(array[i+1].name);
+      //}
+      console.log(document.cookie);
     },
 
     render: function(){
+
+      var arr = getCookie('highscore');
+      //var test = JSON.parse(arr);
+      //console.log(test);
+      var indents = [];
+        for (var i = 0; i < 1; i++) {
+          indents.push(<span className='scores'>{arr}</span>);
+        }
+
         return (
             <div>
                 <h2>Highscore</h2>
@@ -36,8 +55,9 @@ var doStuff = React.createClass({
 
         				<h2>Testing</h2>
                 <button onClick={this.showScores}>Show</button>
-                <div id="scores">
 
+                <div id="scores">
+{indents}
                 </div>
 
             </div>

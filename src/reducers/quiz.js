@@ -1,5 +1,35 @@
 var initialState = require('./../initialstate');
 var _ = require('lodash');
+
+function createCookie(name, value, expires, path, domain) {
+  console.log("createCookie()");
+  var previousCookie = document.cookie;
+  var cookie = name + "=" + escape(value) + ";";
+
+  if (expires) {
+    // If it's a date
+    if(expires instanceof Date) {
+      // If it isn't a valid date
+      if (isNaN(expires.getTime()))
+       expires = new Date();
+    }
+    else
+      expires = new Date(new Date().getTime() + parseInt(expires) * 1000 * 60 * 60 * 24);
+
+    cookie += "expires=" + expires.toGMTString() + ";";
+  }
+
+  if (path)
+    cookie += "path=" + path + ";";
+  if (domain)
+    cookie += "domain=" + domain + ";";
+
+    //var json_str = JSON.stringify(cookie);
+  document.cookie = cookie;
+  //console.log(document.cookie);
+}
+
+
 var QuizReducer = function (state, action) {
     var newState = Object.assign({}, state);
 
@@ -54,12 +84,19 @@ var QuizReducer = function (state, action) {
             newState.multiplier = 1;
             newState.totalTimeScore = 0;
 
-
+            //console.log(document.cookie);
             newState.startTime = new Date().getTime();
             newState.questionArray = _.shuffle(newState.questionArray);
             document.getElementById("buttonStart").style.visibility = "hidden";
             document.getElementById("buttonNext").style.visibility = "visible";
             newState.currentQuestion = newState.questionArray[newState.questionCount - 1];
+            return newState;
+
+        case 'COOKIE':
+          newState.highscoreArray.push({name: 'Micke', score: newState.totalScore});
+          console.log(newState.highscoreArray);
+          createCookie("highscore", JSON.stringify(newState.highscoreArray), 30);
+
             return newState;
         default:
             return state || initialState().quiz;

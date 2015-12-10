@@ -54,7 +54,8 @@ module.exports = function () {
             totalTimeScore: 0,
             totalScore: 0,
             correctInARow: 0,
-            wrongInARow: 0
+            wrongInARow: 0,
+            highscoreArray: []
         }
     }
 };

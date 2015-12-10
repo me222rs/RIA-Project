@@ -7,7 +7,8 @@ var quiz = React.createClass({
     propTypes: {
         doStuff: ptypes.func.isRequired,
         quiz: ptypes.func.isRequired,
-        change: ptypes.func.isRequired
+        change: ptypes.func.isRequired,
+        cookie: ptypes.func.isRequired
     },
     getInitialState: function () {
         return {on: false, playMusic: true, answer: ''};
@@ -60,7 +61,7 @@ var quiz = React.createClass({
                 <div id="message">
                     <p>{this.props.questionValue}</p>
                     <input id="postResult" type="text" name="name"/>
-                    <button id="postResultButton" onClick={this.props.doStuff}>Post</button>
+                    <button id="postResultButton" onClick={this.props.cookie}>Post</button>
                 </div>
 
                 <div id="multiplierandpoints">
@@ -100,7 +101,11 @@ var mapDispatchToProps = function (dispatch) {
         },
         doStuff: function () {
             dispatch(actions.doStuff());
+        },
+        cookie: function () {
+            dispatch(actions.cookie());
         }
+
     }
 };
 
