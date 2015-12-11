@@ -3,11 +3,21 @@ This module contains action creators. They are functions which will return an ob
 These actions are imported by Redux-aware components who need them, in our case it is just Home.
 */
 
-var constants = require("./constants");
-//Firebase = require("firebase");
-//quotesRef = new Firebase("https://intense-torch-2681.firebaseio.com/").child("question");
+var C = require("./constants");
+Firebase = require("firebase"),
+fb = new Firebase(C.FIREBASE);
 
 module.exports = {
+	startListeningToScores: function(){
+		console.log("crap");
+	return function(dispatch,getState){
+		quotesRef.on("child_added",function(snapshot){
+			//dispatch({ type: 'GET_SCORES', data: snapshot.val() });
+			var message = snapshot.val();
+			console.log(message.name + message.score);
+		});
+	}
+},
 	doStuff: function(){
         return {type: 'DO_STUFF'};
     },
@@ -34,7 +44,12 @@ module.exports = {
     },
 		cookie: function(){
         return {type: 'COOKIE'};
-    }
+    },
+		postScore: function(){
+			return{type: 'POST_SCORE'};
+
+		},
+
 
 
 };

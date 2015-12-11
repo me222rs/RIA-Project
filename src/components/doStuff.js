@@ -2,14 +2,17 @@ var React = require('react'),
     ptypes = React.PropTypes,
     ReactRedux = require('react-redux'),
     actions = require('../actions');
+    var C = require("../constants");
+    Firebase = require("firebase"),
+    fb = new Firebase(C.FIREBASE);
 
 
-    function getCookie(name) {
+/*    function getCookie(name) {
       var regexp = new RegExp("(?:^" + name + "|;\s*"+ name + ")=(.*?)(?:;|$)", "g");
       var result = regexp.exec(document.cookie);
       return (result === null) ? null : result[1];
     }
-
+*/
 var doStuff = React.createClass({
     propTypes: {
         doStuff: ptypes.func.isRequired,
@@ -28,19 +31,19 @@ var doStuff = React.createClass({
       //{
       //    document.getElementById("scores").appendChild(array[i+1].name);
       //}
-      console.log(document.cookie);
+      //console.log(document.cookie);
     },
 
     render: function(){
 
-      var arr = getCookie('highscore');
+/*      var arr = getCookie('highscore');
       //var test = JSON.parse(arr);
       //console.log(test);
       var indents = [];
         for (var i = 0; i < 1; i++) {
           indents.push(<span className='scores'>{arr}</span>);
         }
-
+*/
         return (
             <div>
                 <h2>Highscore</h2>
@@ -57,7 +60,7 @@ var doStuff = React.createClass({
                 <button onClick={this.showScores}>Show</button>
 
                 <div id="scores">
-{indents}
+                    
                 </div>
 
             </div>

@@ -1,7 +1,10 @@
 var initialState = require('./../initialstate');
 var _ = require('lodash');
+var C = require("../constants");
+Firebase = require("firebase"),
+fb = new Firebase(C.FIREBASE);
 
-function createCookie(name, value, expires, path, domain) {
+/*function createCookie(name, value, expires, path, domain) {
   console.log("createCookie()");
   var previousCookie = document.cookie;
   var cookie = name + "=" + escape(value) + ";";
@@ -28,7 +31,7 @@ function createCookie(name, value, expires, path, domain) {
   document.cookie = cookie;
   //console.log(document.cookie);
 }
-
+*/
 
 var QuizReducer = function (state, action) {
     var newState = Object.assign({}, state);
@@ -93,9 +96,19 @@ var QuizReducer = function (state, action) {
             return newState;
 
         case 'COOKIE':
-          newState.highscoreArray.push({name: 'Micke', score: newState.totalScore});
+          /*newState.highscoreArray.push({name: 'Micke', score: newState.totalScore});
           console.log(newState.highscoreArray);
           createCookie("highscore", JSON.stringify(newState.highscoreArray), 30);
+*/
+        case 'POST_SCORE':
+        //postScore: function(){
+          var myFireRef = new Firebase(C.FIREBASE+"/score");
+          fb.push({
+            name: document.getElementById("postResult").value,
+            score: newState.totalScore
+          });
+
+        //}
 
             return newState;
         default:
