@@ -9,6 +9,7 @@ var React = require('react'),
 	Provider = require('react-redux').Provider,
 	store = require('./store'),
 	routes = require('./routes');
+	actions = require('./actions');
 
 ReactDOM.render(
 	// The top-level Provider is what allows us to `connect` components to the store
@@ -18,3 +19,8 @@ ReactDOM.render(
 	</Provider>,
 	document.getElementById("root")
 );
+
+// setup Firebase listeners
+setTimeout(function(){
+	store.dispatch( actions.startListeningToScores() );
+});

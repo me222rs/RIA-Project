@@ -7,12 +7,6 @@ var React = require('react'),
     fb = new Firebase(C.FIREBASE);
 
 
-/*    function getCookie(name) {
-      var regexp = new RegExp("(?:^" + name + "|;\s*"+ name + ")=(.*?)(?:;|$)", "g");
-      var result = regexp.exec(document.cookie);
-      return (result === null) ? null : result[1];
-    }
-*/
 var doStuff = React.createClass({
     propTypes: {
         doStuff: ptypes.func.isRequired,
@@ -21,17 +15,6 @@ var doStuff = React.createClass({
 		button2: ptypes.func.isRequired,
 		button3: ptypes.func.isRequired,
 		button4: ptypes.func.isRequired
-    },
-    showScores: function(){
-      //Get cookie and display the highscores
-      //var json_str = getCookie('mycookie');
-      //var arr = JSON.parse(json_str);
-      //var array = this.props.highscoreArray;
-      //for (i=0;i<array.length;i++)
-      //{
-      //    document.getElementById("scores").appendChild(array[i+1].name);
-      //}
-      //console.log(document.cookie);
     },
 
     render: function(){
@@ -60,7 +43,7 @@ var doStuff = React.createClass({
                 <button onClick={this.showScores}>Show</button>
 
                 <div id="scores">
-                    
+
                 </div>
 
             </div>

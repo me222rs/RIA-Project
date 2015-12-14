@@ -1,14 +1,23 @@
-var C = require("constants"),
+/*
+This module contains action creators dealing with `appState.quotes`
+*/
+
+var C = require("./constants"),
 	Firebase = require("firebase"),
-	firebase = new Firebase(C.FIREBASE);
+	quotesRef = new Firebase(C.FIREBASE);
 
 module.exports = {
-  postScore: function(name, score){
-		var myFireRef = new Firebase(C.FIREBASE+"/score");
-		firebase.push({
-			name: name,
-			score: score
-		});
+	// called when the app starts. this means we immediately download all quotes, and
+	// then receive all quotes again as soon as anyone changes anything.
+	startListeningToScores: function(){
+		return function(dispatch,getState){
+			quotesRef.on("value",function(snapshot){
+				dispatch({ type: 'GET_SCORES', data: snapshot.val() });
+			});
+		}
+	}
 
-	},
+
+
+
 };

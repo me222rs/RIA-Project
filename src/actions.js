@@ -10,13 +10,11 @@ fb = new Firebase(C.FIREBASE);
 module.exports = {
 	startListeningToScores: function(){
 		console.log("crap");
-	return function(dispatch,getState){
-		quotesRef.on("child_added",function(snapshot){
-			//dispatch({ type: 'GET_SCORES', data: snapshot.val() });
-			var message = snapshot.val();
-			console.log(message.name + message.score);
-		});
-	}
+		return function(dispatch,getState){
+			fb.on("value",function(snapshot){
+				dispatch({ type: 'GET_SCORES', data: snapshot.val() });
+			});
+		}
 },
 	doStuff: function(){
         return {type: 'DO_STUFF'};
