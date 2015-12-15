@@ -5,6 +5,7 @@ var DoStuffReducer = function(state, action){
     var newState = Object.assign({}, state);
     switch(action.type){
       case 'GET_SCORES':
+
         return Object.assign({},state,{
           hasreceiveddata: true,
           data: action.data

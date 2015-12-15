@@ -5,7 +5,24 @@ var React = require('react'),
     var C = require("../constants");
     Firebase = require("firebase"),
     fb = new Firebase(C.FIREBASE);
+    var _ = require('lodash');
 
+    var Scores = React.createClass({
+    	render: function(){
+    		var score = this.props.scores.map(function(score, index){
+    			return(
+    				<p key={index}>
+    					 {score.name} <span className="score"> {score.score}</span>
+    				</p>
+    			);
+    		});
+    		return(
+    			<div id="scoreListDiv">
+    				{score}
+    			</div>
+    		);
+    	}
+    });
 
 var doStuff = React.createClass({
     propTypes: {
@@ -17,16 +34,31 @@ var doStuff = React.createClass({
 		button4: ptypes.func.isRequired
     },
 
-    render: function(){
+    //var ChatWrapper = React.createClass({
+    	getInitialState: function() {
+        	return {scores: []};
+    	},
+    	componentWillMount: function() {
+        console.log("körs");
+    			fb.limitToLast(20).on("value",
+    			function(dataSnapshot) {
+    				var getScores = [];
+    				dataSnapshot.forEach(function(childSnapshot){
+    					var getScore = childSnapshot.val();
+    					getScore[".key"] = childSnapshot.key();
+    					getScores.push(getScore);
+    				}.bind(this));
+    			this.setState({scores: getScores});
 
-/*      var arr = getCookie('highscore');
-      //var test = JSON.parse(arr);
-      //console.log(test);
-      var indents = [];
-        for (var i = 0; i < 1; i++) {
-          indents.push(<span className='scores'>{arr}</span>);
-        }
-*/
+    		}.bind(this));
+      	},
+    	componentWillUnmount: function() {
+       		fb.off();
+     	},
+
+    render: function(){
+        console.log(this.state.scores);
+
         return (
             <div>
                 <h2>Highscore</h2>
@@ -37,18 +69,18 @@ var doStuff = React.createClass({
 
                 </p>
 
-
-
         				<h2>Testing</h2>
                 <button onClick={this.showScores}>Show</button>
 
-                <div id="scores">
-
-                </div>
+                  <div id="scoreWrapper">
+                    <div id="ScoreDiv">
+                      <Scores scores={this.state.scores}/>
+                    </div>
+                  </div>
 
             </div>
         );
-    }
+    },
 });
 
 var mapStateToProps = function(state){

@@ -21,6 +21,6 @@ ReactDOM.render(
 );
 
 // setup Firebase listeners
-setTimeout(function(){
+/*setTimeout(function(){
 	store.dispatch( actions.startListeningToScores() );
-});
+});*/
