@@ -66,20 +66,12 @@ var QuizReducer = function (state, action) {
             newState.currentQuestion = newState.questionArray[newState.questionCount - 1];
             return newState;
 
-        case 'COOKIE':
-          /*newState.highscoreArray.push({name: 'Micke', score: newState.totalScore});
-          console.log(newState.highscoreArray);
-          createCookie("highscore", JSON.stringify(newState.highscoreArray), 30);
-*/
         case 'POST_SCORE':
-        //postScore: function(){
           var myFireRef = new Firebase(C.FIREBASE+"/score");
           fb.push({
             name: document.getElementById("postResult").value,
             score: newState.totalScore
           });
-
-        //}
 
             return newState;
         default:

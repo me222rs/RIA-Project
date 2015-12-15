@@ -56,6 +56,7 @@ module.exports = function () {
             correctInARow: 0,
             wrongInARow: 0,
             highscoreArray: []
+
         }
     }
 };

@@ -19,8 +19,3 @@ ReactDOM.render(
 	</Provider>,
 	document.getElementById("root")
 );
-
-// setup Firebase listeners
-/*setTimeout(function(){
-	store.dispatch( actions.startListeningToScores() );
-});*/

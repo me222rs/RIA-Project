@@ -39,13 +39,14 @@ var doStuff = React.createClass({
     	},
     	componentWillMount: function() {
         console.log("körs");
-    			fb.on("value",
+    			fb.orderByChild("score").on("value",
     			function(snapshot) {
     				var getScores = [];
     				snapshot.forEach(function(childSnapshot){
     					var getScore = childSnapshot.val();
     					getScores.push(getScore);
     				}.bind(this));
+            getScores.reverse();
     			this.setState({scores: getScores});
 
     		}.bind(this));
