@@ -12,12 +12,12 @@ var React = require('react'),
     		var score = this.props.scores.map(function(score, index){
     			return(
     				<p key={index}>
-    					 {score.name} <span className="score"> {score.score}</span>
+    					 <span className="score">{score.name} {score.score}</span>
     				</p>
     			);
     		});
     		return(
-    			<div id="scoreListDiv">
+    			<div id="score">
     				{score}
     			</div>
     		);
@@ -26,7 +26,7 @@ var React = require('react'),
 
 var doStuff = React.createClass({
     propTypes: {
-        doStuff: ptypes.func.isRequired,
+    doStuff: ptypes.func.isRequired,
 		doMoreStuff: ptypes.func.isRequired,
 		button1: ptypes.func.isRequired,
 		button2: ptypes.func.isRequired,
@@ -34,18 +34,16 @@ var doStuff = React.createClass({
 		button4: ptypes.func.isRequired
     },
 
-    //var ChatWrapper = React.createClass({
     	getInitialState: function() {
         	return {scores: []};
     	},
     	componentWillMount: function() {
         console.log("körs");
-    			fb.limitToLast(20).on("value",
-    			function(dataSnapshot) {
+    			fb.on("value",
+    			function(snapshot) {
     				var getScores = [];
-    				dataSnapshot.forEach(function(childSnapshot){
+    				snapshot.forEach(function(childSnapshot){
     					var getScore = childSnapshot.val();
-    					getScore[".key"] = childSnapshot.key();
     					getScores.push(getScore);
     				}.bind(this));
     			this.setState({scores: getScores});
@@ -61,23 +59,10 @@ var doStuff = React.createClass({
 
         return (
             <div>
-                <h2>Highscore</h2>
-                <p>Message: {this.props.currentValue}</p>
-                <p>
-                    <button onClick={this.props.doStuff}>Hello World!</button>
-					          <button onClick={this.props.doMoreStuff}>Reset</button>
-
-                </p>
-
-        				<h2>Testing</h2>
-                <button onClick={this.showScores}>Show</button>
-
-                  <div id="scoreWrapper">
+                <h2>Highscores</h2>
                     <div id="ScoreDiv">
                       <Scores scores={this.state.scores}/>
                     </div>
-                  </div>
-
             </div>
         );
     },
