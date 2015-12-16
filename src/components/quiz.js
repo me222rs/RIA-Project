@@ -37,7 +37,10 @@ var quiz = React.createClass({
             el.className = "buttonNext";
         }, 1000);
     },
-
+    postScore: function(){
+        //console.log(this.refs.name.value);
+        this.props.postScore(this.refs.name.value);
+    },
     render: function () {
         var muteText = this.state.playMusic ? "Mute" : "Play";
         var instructionClass = this.state.on ? "on" : "";
@@ -53,7 +56,7 @@ var quiz = React.createClass({
 
             <div id="content">
                 <span id="timer"></span>
-                <audio autoPlay={this.state.playMusic} id="soundtrack">
+                <audio autoPlay={this.state.playMusic} id="soundtrack" muted={this.state.playMusic}>
                     <source src="Sound/theme.mp3" type="audio/mpeg"/>
                 </audio>
                 <button id="muteSoundButton" onClick={this.onMuteSound}>{muteText}</button>
@@ -61,8 +64,8 @@ var quiz = React.createClass({
 
                 <div id="message">
                     <p>{this.props.questionValue}</p>
-                    <input id="postResult" type="text" name="name"/>
-                    <button id="postResultButton" onClick={this.props.postScore}>Post</button>
+                    <input id="postResult" type="text" name="name" ref="name"/>
+                    <button id="postResultButton" onClick={this.postScore}>Post</button>
                 </div>
 
                 <div id="multiplierandpoints">
@@ -106,8 +109,8 @@ var mapDispatchToProps = function (dispatch) {
         cookie: function () {
             dispatch(actions.cookie());
         },
-        postScore: function () {
-            dispatch(actions.postScore());
+        postScore: function (name) {
+            dispatch(actions.postScore(name));
         }
 
     }

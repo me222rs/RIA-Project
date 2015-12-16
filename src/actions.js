@@ -35,8 +35,8 @@ module.exports = {
 		cookie: function(){
         return {type: 'COOKIE'};
     },
-		postScore: function(){
-			return{type: 'POST_SCORE'};
+		postScore: function(name){
+			return{type: 'POST_SCORE', name:name};
 
 		},
 

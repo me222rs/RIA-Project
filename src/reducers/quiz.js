@@ -69,7 +69,8 @@ var QuizReducer = function (state, action) {
         case 'POST_SCORE':
           var myFireRef = new Firebase(C.FIREBASE+"/score");
           fb.push({
-            name: document.getElementById("postResult").value,
+            //action.something...
+            name: action.name,
             score: newState.totalScore
           });
 
