@@ -64,8 +64,8 @@ var quiz = React.createClass({
 
                 <div id="message">
                     <p>{this.props.questionValue}</p>
-                    <input id="postResult" type="text" name="name" ref="name"/>
-                    <button id="postResultButton" onClick={this.postScore}>Post</button>
+                    <input className={this.props.showPostResult ? 'visible' : 'hidden'} id="postResult" type="text" name="name" ref="name"/>
+                    <button className={this.props.showPostResult ? 'visible' : 'hidden'} id="postResultButton" onClick={this.postScore}>Post</button>
                 </div>
 
                 <div id="multiplierandpoints">

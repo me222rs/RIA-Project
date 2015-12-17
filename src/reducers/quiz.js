@@ -31,6 +31,7 @@ var QuizReducer = function (state, action) {
                     newState.questionCount += 1;
                 }
                 else {
+                    newState.showPostResult = true;
                     document.getElementById("message").style.backgroundColor = "blue";
                     var totalScore = newState.points + newState.totalTimeScore;
                     newState.totalScore = totalScore;
@@ -38,8 +39,8 @@ var QuizReducer = function (state, action) {
                     document.getElementById("buttonNext").style.visibility = "hidden";
                     document.getElementById("buttonStart").style.visibility = "visible";
 
-                    document.getElementById("postResultButton").style.visibility = "visible";
-                    document.getElementById("postResult").style.visibility = "visible";
+                    //document.getElementById("postResultButton").style.visibility = "visible";
+                    //document.getElementById("postResult").style.visibility = "visible";
                 }
             }
             else {
@@ -73,7 +74,7 @@ var QuizReducer = function (state, action) {
             name: action.name,
             score: newState.totalScore
           });
-
+            newState.showPostResult = false;
             return newState;
         default:
             return state || initialState().quiz;

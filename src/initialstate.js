@@ -55,8 +55,8 @@ module.exports = function () {
             totalScore: 0,
             correctInARow: 0,
             wrongInARow: 0,
-            highscoreArray: []
-
+            highscoreArray: [],
+            showPostResult: false
         }
     }
 };

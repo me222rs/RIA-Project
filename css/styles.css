@@ -1,3 +1,7 @@
+.hidden{
+  visibility:hidden;
+}
+
 #instructions.rotation {
     -webkit-animation: rotation 1s forwards;
 }
@@ -58,10 +62,10 @@ body{
 }
 
 #postResultButton{
-    visibility: hidden;
+    /*visibility: hidden;*/
 }
 #postResult{
-    visibility: hidden;
+    /*visibility: hidden;*/
     width: 30%;
 }
 
