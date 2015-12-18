@@ -1,6 +1,18 @@
 .hidden{
   visibility:hidden;
 }
+.green{
+  background-color:green;
+}
+.red{
+  background-color:red;
+}
+.visibleAnimation{
+  -webkit-animation: pulsate 1s ease-out;
+  animation: pulsate 0.3s ease-out;
+  animation-iteration-count: 2;
+}
+
 
 #instructions.rotation {
     -webkit-animation: rotation 1s forwards;
@@ -99,7 +111,7 @@ body{
 		height: 20%;
 		margin-left: auto;
 		margin-right: auto;
-		background-color: blue;
+		/*background-color: blue;*/
 		border-radius: 5px;
 		font-size: 17px;
 		color: white;
@@ -169,5 +181,5 @@ button:hover {
 		background-image: url("../Images/mute.png");
 }
 #buttonNext{
-	visibility:hidden;
+	/*visibility:hidden;*/
 }

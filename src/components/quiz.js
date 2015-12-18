@@ -22,19 +22,22 @@ var quiz = React.createClass({
         this.setState({answer: e.currentTarget.value});
     },
     onMuteSound: function () {
-        //document.getElementById("soundtrack").volume=0.1;
         this.setState({playMusic: !this.state.playMusic});
+        if(this.state.playMusic){
+          this.refs.soundtrack.volume = 0.1;
+          this.refs.soundtrack.play();
+        }
         console.log(this.state.playMusic);
-        document.getElementById("soundtrack").muted = this.state.playMusic;
-        //this.setState({mute: !this.state.on});
+        this.refs.soundtrack.muted = this.state.playMusic;
     },
     nextAnimation: function (e) {
-        var el = document.getElementById('buttonNext');
+        var el = this.refs.buttonNext;
+        //var el = document.getElementById('buttonNext');
         if(el) {
-          el.className += el.className ? ' on' : 'buttonNext';
+          el.className += el.className ? ' on' : ' buttonNext';
         }
         setTimeout(function() {
-            el.className = "buttonNext";
+            el.className = " buttonNext";
         }, 1000);
     },
     postScore: function(){
@@ -42,7 +45,7 @@ var quiz = React.createClass({
         this.props.postScore(this.refs.name.value);
     },
     render: function () {
-        var muteText = this.state.playMusic ? "Mute" : "Play";
+        var muteText = this.state.playMusic ? "Play music" : "Mute";
         var instructionClass = this.state.on ? "on" : "";
         instructionClass += " button";
         //<div className={className} onClick={this.toggleOnOff}>{text}</div>
@@ -56,13 +59,13 @@ var quiz = React.createClass({
 
             <div id="content">
                 <span id="timer"></span>
-                <audio autoPlay={this.state.playMusic} id="soundtrack" muted={this.state.playMusic}>
+                <audio ref="soundtrack" id="soundtrack" muted={this.state.playMusic}>
                     <source src="Sound/theme.mp3" type="audio/mpeg"/>
                 </audio>
                 <button id="muteSoundButton" onClick={this.onMuteSound}>{muteText}</button>
                 <h2>Quiz</h2>
 
-                <div id="message">
+                <div id="message" className={this.props.correctAnswer ? 'green' : 'red'}>
                     <p>{this.props.questionValue}</p>
                     <input className={this.props.showPostResult ? 'visible' : 'hidden'} id="postResult" type="text" name="name" ref="name"/>
                     <button className={this.props.showPostResult ? 'visible' : 'hidden'} id="postResultButton" onClick={this.postScore}>Post</button>
@@ -78,10 +81,10 @@ var quiz = React.createClass({
 
 
                 <div id="options">
-                    <button id="buttonStart" onClick={this.props.doStuff}>Start</button>
+                    <button id="buttonStart" onClick={this.props.doStuff} className={this.props.gameHasStarted ? 'hidden' : 'visible'}>Start</button>
                     <p>{this.props.currentQuestion.question}</p>
                         {radios}
-                        <button id="buttonNext" onClick={this.props.quiz.bind(null, this.state.answer)}>Next question
+                        <button id="buttonNext" ref="buttonNext" className={this.props.gameHasStarted ? ' visible' : ' hidden'} onClick={this.props.quiz.bind(null, this.state.answer)}>Next question
                         </button>
                 </div>
             </div>
@@ -89,7 +92,7 @@ var quiz = React.createClass({
 
     }
 });
-//React.render(document.getElementById("switch"));
+
 
 var mapStateToProps = function (state) {
     return state.quiz;

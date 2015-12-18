@@ -56,7 +56,9 @@ module.exports = function () {
             correctInARow: 0,
             wrongInARow: 0,
             highscoreArray: [],
-            showPostResult: false
+            showPostResult: false,
+            correctAnswer: false,
+            gameHasStarted: false
         }
     }
 };
