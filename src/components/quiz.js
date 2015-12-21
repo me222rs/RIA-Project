@@ -31,7 +31,7 @@ var quiz = React.createClass({
           el.className += el.className ? ' on' : ' buttonNext';
         }
         setTimeout(function() {
-            el.className = " buttonNext";
+              el.className = " buttonNext";
         }, 1000);
     },
     postScore: function(){

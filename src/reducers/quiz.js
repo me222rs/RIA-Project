@@ -35,6 +35,7 @@ var QuizReducer = function (state, action) {
                   var totalScore = newState.points + newState.totalTimeScore;
                   newState.totalScore = totalScore;
                   newState.questionValue = "Well done! You got " + totalScore + " points!";
+                  newState.hasPostedScore = false;
                 }
             }
             //This happens if your answer is incorrect
@@ -55,6 +56,7 @@ var QuizReducer = function (state, action) {
             newState.multiplier = 1;
             newState.totalTimeScore = 0;
             newState.gameHasStarted = true;
+            newState.showPostResult = false;
 
             //Starts the timer
             newState.startTime = new Date().getTime();
@@ -63,13 +65,16 @@ var QuizReducer = function (state, action) {
             return newState;
 
         case 'POST_SCORE':
-          //Pushes the score and name to firebase
-          var myFireRef = new Firebase(C.FIREBASE+"/score");
-          fb.push({
-            name: action.name,
-            score: newState.totalScore
-          });
-            newState.showPostResult = false;
+          if(newState.hasPostedScore === false){
+            //Pushes the score and name to firebase
+            var myFireRef = new Firebase(C.FIREBASE+"/score");
+            fb.push({
+              name: action.name,
+              score: newState.totalScore
+            });
+              newState.showPostResult = false;
+              newState.hasPostedScore = true;
+          }
             return newState;
         default:
             return state || initialState().quiz;

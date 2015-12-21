@@ -46,7 +46,8 @@ module.exports = function () {
             totalScore: 0,
             showPostResult: false,
             correctAnswer: false,
-            gameHasStarted: false
+            gameHasStarted: false,
+            hasPostedScore:false
         }
     }
 };
