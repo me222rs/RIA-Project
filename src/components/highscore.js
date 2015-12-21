@@ -24,7 +24,7 @@ var React = require('react'),
     	}
     });
 
-var doStuff = React.createClass({
+var Highscore = React.createClass({
     propTypes: {
     doStuff: ptypes.func.isRequired
     },
@@ -49,8 +49,6 @@ var doStuff = React.createClass({
      	},
 
     render: function(){
-        console.log(this.state.scores);
-
         return (
             <div>
                 <h2>Highscores</h2>
@@ -74,4 +72,4 @@ var mapDispatchToProps = function(dispatch){
     }
 };
 
-module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(doStuff);
+module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Highscore);
