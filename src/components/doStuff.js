@@ -26,19 +26,12 @@ var React = require('react'),
 
 var doStuff = React.createClass({
     propTypes: {
-    doStuff: ptypes.func.isRequired,
-		doMoreStuff: ptypes.func.isRequired,
-		button1: ptypes.func.isRequired,
-		button2: ptypes.func.isRequired,
-		button3: ptypes.func.isRequired,
-		button4: ptypes.func.isRequired
+    doStuff: ptypes.func.isRequired
     },
-
     	getInitialState: function() {
         	return {scores: []};
     	},
     	componentWillMount: function() {
-        console.log("körs");
     			fb.orderByChild("score").on("value",
     			function(snapshot) {
     				var getScores = [];
@@ -77,21 +70,6 @@ var mapDispatchToProps = function(dispatch){
     return {
         doStuff: function(){
             dispatch(actions.doStuff());
-        },
-		doMoreStuff: function(){
-            dispatch(actions.doMoreStuff());
-        },
-		button1: function(){
-            dispatch(actions.button1());
-        },
-		button2: function(){
-            dispatch(actions.button2());
-        },
-		button3: function(){
-            dispatch(actions.button3());
-        },
-		button4: function(){
-            dispatch(actions.button4());
         }
     }
 };

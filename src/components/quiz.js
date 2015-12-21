@@ -7,15 +7,10 @@ var quiz = React.createClass({
     propTypes: {
         doStuff: ptypes.func.isRequired,
         quiz: ptypes.func.isRequired,
-        change: ptypes.func.isRequired,
-        cookie: ptypes.func.isRequired,
         postScore: ptypes.func.isRequired
     },
     getInitialState: function () {
         return {on: false, playMusic: true, answer: ''};
-    },
-    toggleOnOff: function (e) {
-        this.setState({on: !this.state.on});
     },
     onOptionChanged: function (e) {
         this.nextAnimation();
@@ -32,7 +27,6 @@ var quiz = React.createClass({
     },
     nextAnimation: function (e) {
         var el = this.refs.buttonNext;
-        //var el = document.getElementById('buttonNext');
         if(el) {
           el.className += el.className ? ' on' : ' buttonNext';
         }
@@ -41,14 +35,12 @@ var quiz = React.createClass({
         }, 1000);
     },
     postScore: function(){
-        //console.log(this.refs.name.value);
         this.props.postScore(this.refs.name.value);
     },
     render: function () {
         var muteText = this.state.playMusic ? "Play music" : "Mute";
         var instructionClass = this.state.on ? "on" : "";
         instructionClass += " button";
-        //<div className={className} onClick={this.toggleOnOff}>{text}</div>
         var options = this.props.currentQuestion.options;
         var radios = options.map(function (option, index) {
             return (<div><input type="radio" onClick={this.nextAnimation} checked={this.state.answer === "A" + (index + 1)}
@@ -103,14 +95,8 @@ var mapDispatchToProps = function (dispatch) {
         quiz: function (answer) {
             dispatch(actions.quiz(answer));
         },
-        change: function () {
-            dispatch(actions.change());
-        },
         doStuff: function () {
             dispatch(actions.doStuff());
-        },
-        cookie: function () {
-            dispatch(actions.cookie());
         },
         postScore: function (name) {
             dispatch(actions.postScore(name));

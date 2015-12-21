@@ -10,11 +10,6 @@ var C = require("./constants");
 module.exports = function () {
     return {
         doStuff: {
-            currentValue: "",
-            currentSrcButtons: ["https://secure.royalquiz.com/mq/images/lvvrcfqc.jpg",
-                "https://secure.royalquiz.com/mq/images/lvvrcfqc.jpg",
-                "https://secure.royalquiz.com/mq/images/lvvrcfqc.jpg",
-                "https://secure.royalquiz.com/mq/images/lvvrcfqc.jpg"],
             highscoreArray: [],
         },
         quiz: {
@@ -45,17 +40,10 @@ module.exports = function () {
             questionCount: 1,
             points: 0,
             multiplier: 1,
-            choice: "A3",
-            mute: "Mute sound",
-            data: null,
-            flipped: false,
             startTime: 0,
             endTime: 0,
             totalTimeScore: 0,
             totalScore: 0,
-            correctInARow: 0,
-            wrongInARow: 0,
-            highscoreArray: [],
             showPostResult: false,
             correctAnswer: false,
             gameHasStarted: false
