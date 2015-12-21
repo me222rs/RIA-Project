@@ -35,7 +35,7 @@ var quiz = React.createClass({
         }, 1000);
     },
     postScore: function(){
-        this.props.postScore(this.refs.name.value);
+        this.props.postScore(this.refs.name.value, this.props.totalScore);
     },
     render: function () {
         var muteText = this.state.playMusic ? "Play music" : "Mute";
@@ -98,8 +98,8 @@ var mapDispatchToProps = function (dispatch) {
         doStuff: function () {
             dispatch(actions.doStuff());
         },
-        postScore: function (name) {
-            dispatch(actions.postScore(name));
+        postScore: function (name, score) {
+            dispatch(actions.postScore(name, score));
         }
 
     }

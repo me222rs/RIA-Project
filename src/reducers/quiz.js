@@ -21,7 +21,8 @@ var QuizReducer = function (state, action) {
                 newState.totalTimeScore += 10 - questionTime;
 
                 //Starts the timer
-                newState.startTime = new Date().getTime();
+                //newState.startTime = new Date().getTime();
+                newState.startTime = action.startTime;
 
                 //Next question in array
                 if (newState.questionArray.length - 1 >= newState.questionCount) {
@@ -59,19 +60,14 @@ var QuizReducer = function (state, action) {
             newState.showPostResult = false;
 
             //Starts the timer
-            newState.startTime = new Date().getTime();
-            newState.questionArray = _.shuffle(newState.questionArray);
+            newState.startTime = action.startTime;
+            //newState.startTime = new Date().getTime();
+            newState.questionArray = _.shuffle(newState.questionArray); //Flytta till action
             newState.currentQuestion = newState.questionArray[newState.questionCount - 1];
             return newState;
 
         case 'POST_SCORE':
           if(newState.hasPostedScore === false){
-            //Pushes the score and name to firebase
-            var myFireRef = new Firebase(C.FIREBASE+"/score");
-            fb.push({
-              name: action.name,
-              score: newState.totalScore
-            });
               newState.showPostResult = false;
               newState.hasPostedScore = true;
           }

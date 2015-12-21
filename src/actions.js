@@ -9,12 +9,18 @@ fb = new Firebase(C.FIREBASE);
 
 module.exports = {
 	doStuff: function(){
-        return {type: 'DO_STUFF'};
+        return {type: 'DO_STUFF' , startTime: new Date().getTime()};
     },
 		quiz: function(answer){
-        return {type: 'NEXT_QUESTION', answer:answer};
+        return {type: 'NEXT_QUESTION', answer:answer, startTime: new Date().getTime()};
     },
-		postScore: function(name){
+		postScore: function(name, score){
+			//Pushes the score and name to firebase
+			var myFireRef = new Firebase(C.FIREBASE+"/score");
+			fb.push({
+				name: name,
+				score: score
+			});
 			return{type: 'POST_SCORE', name:name};
 		},
 };
