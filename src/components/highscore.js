@@ -51,10 +51,14 @@ var Highscore = React.createClass({
     render: function(){
         return (
             <div>
+              <div id="content">
+                <div id="highscores">
                 <h2>Highscores</h2>
                     <div id="ScoreDiv">
                       <Scores scores={this.state.scores}/>
                     </div>
+                </div>
+              </div>
             </div>
         );
     },

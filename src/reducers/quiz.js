@@ -18,11 +18,10 @@ var QuizReducer = function (state, action) {
                 var questionTime = Math.floor((action.startTime - newState.startTime) / 1000);
                 newState.points += 10 * newState.multiplier;
                 newState.multiplier += 1;
-                newState.questionValue = "Correct! " + ((10 - questionTime)+(10 * (newState.multiplier-1))) + " points.";
+                newState.questionValue = questionArray[newState.questionCount-1].answer+ " (" + ((10 - questionTime)+(10 * (newState.multiplier-1))) + " points.)";
                 newState.totalTimeScore += 10 - questionTime;
 
                 //Starts the timer
-                //newState.startTime = new Date().getTime();
                 newState.startTime = action.startTime;
 
                 //Next question in array
@@ -62,8 +61,6 @@ var QuizReducer = function (state, action) {
 
             //Starts the timer
             newState.startTime = action.startTime;
-            //newState.startTime = new Date().getTime();
-            //newState.questionArray = _.shuffle(newState.questionArray); //Flytta till action
             newState.currentQuestion = questionArray[newState.questionCount - 1];
             return newState;
 

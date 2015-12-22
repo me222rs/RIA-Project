@@ -25,7 +25,7 @@ var quiz = React.createClass({
         }
         setTimeout(function() {
               el.className = " buttonNext";
-        }, 1000);
+        }, 500);
     },
     postScore: function(){
         this.props.postScore(this.refs.name.value, this.props.totalScore);
@@ -37,11 +37,11 @@ var quiz = React.createClass({
         var radios = options.map(function (option, index) {
             return (<div>
                         <label>
-                            <input 
-                                type="radio" 
-                                onClick={this.nextAnimation} 
+                            <input
+                                type="radio"
+                                onClick={this.nextAnimation}
                                 checked={this.state.answer === "A" + (index + 1)}
-                                onChange={this.onOptionChanged} 
+                                onChange={this.onOptionChanged}
                                 name="q1" id={'A' + (index + 1)}
                                 value={"A" + (index + 1)}/>
                                 {option}
@@ -68,7 +68,8 @@ var quiz = React.createClass({
                     <p value={this.props.totalTimeScore + this.props.points} id="totalScore">Total: {this.props.totalTimeScore + this.props.points}</p>
                 </div>
                 <div id="options">
-                    <button id="buttonStart" onClick={this.props.doStuff} className={this.props.gameHasStarted ? 'hidden' : 'visible'}>Start</button>
+                    <p>Question {this.props.questionCount}</p>
+                    <button id="buttonStart" onClick={this.props.doStuff} className={this.props.gameHasStarted ? 'hidden' : 'visible'}>New game</button>
                     <p>{this.props.currentQuestion.question}</p>
                         {radios}
                         <button id="buttonNext" ref="buttonNext" className={this.props.gameHasStarted ? ' visible' : ' hidden'} onClick={this.props.quiz.bind(null, this.state.answer)}>Next question

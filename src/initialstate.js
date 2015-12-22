@@ -13,29 +13,7 @@ module.exports = function () {
             highscoreArray: [],
         },
         quiz: {
-            questionValue: "If you pick the correct answer you will get 10 points and if you pick the wrong answer you will lose 10 points.For each correct answer your multiplier will increase which means more points from each question.The multiplier will be reset if you pick an incorrect answer.",
-            /*questionArray: [{
-                question: "blabla?",
-                answer: "bla",
-                options: ["blabla", "blablabla", "bla"],
-                answerID: "A3"
-            }, {
-                question: "Who is the president if the United States?",
-                answer: "Barack Obama",
-                options: ["Angela Merkel", "Barack Obama", "David Cameron"],
-                answerID: "A2"
-            }, {
-                question: "Do you like cookies?",
-                answer: "Yes",
-                options: ["Yes", "No", "Dont know"],
-                answerID: "A1"
-            },
-            {
-                question: "Which color is snow?",
-                answer: "Yellow",
-                options: ["Yellow", "White", "Red"],
-                answerID: "A2"
-            }],*/
+            questionValue: "If you pick the correct answer you will get 10 points and if you pick the wrong answer you will lose 10 points.For each correct answer your multiplier will increase which means more points from each question.The multiplier will be reset if you pick an incorrect answer. There is also a penalty in form of negative points if it takes 10 seconds or longer for you to answer.",
             currentQuestion: {options: []},
             questionCount: 1,
             points: 0,
@@ -47,7 +25,8 @@ module.exports = function () {
             showPostResult: false,
             correctAnswer: false,
             gameHasStarted: false,
-            hasPostedScore:false
+            hasPostedScore:false,
+            answerOfQuestion: ""
         }
     }
 };
