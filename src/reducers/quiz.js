@@ -3,6 +3,7 @@ var _ = require('lodash');
 var C = require("../constants");
 Firebase = require("firebase"),
 fb = new Firebase(C.FIREBASE);
+questionArray = require('../questions');
 
 var QuizReducer = function (state, action) {
     var newState = Object.assign({}, state);
@@ -10,11 +11,11 @@ var QuizReducer = function (state, action) {
     switch (action.type) {
         case 'NEXT_QUESTION':
             //This happens if answer is correct
-            if (newState.questionArray[newState.questionCount - 1].answerID === action.answer) {
+            if (questionArray[newState.questionCount - 1].answerID === action.answer) {
                 newState.correctAnswer = true;
 
                 //Calculating points
-                var questionTime = Math.floor((new Date().getTime() - newState.startTime) / 1000);
+                var questionTime = Math.floor((action.startTime - newState.startTime) / 1000);
                 newState.points += 10 * newState.multiplier;
                 newState.multiplier += 1;
                 newState.questionValue = "Correct! " + ((10 - questionTime)+(10 * (newState.multiplier-1))) + " points.";
@@ -25,8 +26,8 @@ var QuizReducer = function (state, action) {
                 newState.startTime = action.startTime;
 
                 //Next question in array
-                if (newState.questionArray.length - 1 >= newState.questionCount) {
-                    newState.currentQuestion = newState.questionArray[newState.questionCount];
+                if (questionArray.length - 1 >= newState.questionCount) {
+                    newState.currentQuestion = questionArray[newState.questionCount];
                     newState.questionCount += 1;
                 }
                 //This happens when game is done
@@ -62,8 +63,8 @@ var QuizReducer = function (state, action) {
             //Starts the timer
             newState.startTime = action.startTime;
             //newState.startTime = new Date().getTime();
-            newState.questionArray = _.shuffle(newState.questionArray); //Flytta till action
-            newState.currentQuestion = newState.questionArray[newState.questionCount - 1];
+            //newState.questionArray = _.shuffle(newState.questionArray); //Flytta till action
+            newState.currentQuestion = questionArray[newState.questionCount - 1];
             return newState;
 
         case 'POST_SCORE':
