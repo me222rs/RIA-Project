@@ -1,7 +1,8 @@
 var React = require('react'),
     ptypes = React.PropTypes,
     ReactRedux = require('react-redux'),
-    actions = require('../actions');
+    actions = require('../actions'),
+    AudioPlayer = require('./audioPlayer');
 
 var quiz = React.createClass({
     propTypes: {
@@ -10,21 +11,13 @@ var quiz = React.createClass({
         postScore: ptypes.func.isRequired
     },
     getInitialState: function () {
-        return {on: false, playMusic: true, answer: ''};
+        return {on: false, answer: ''};
     },
     onOptionChanged: function (e) {
         this.nextAnimation();
         this.setState({answer: e.currentTarget.value});
     },
-    onMuteSound: function () {
-        this.setState({playMusic: !this.state.playMusic});
-        if(this.state.playMusic){
-          this.refs.soundtrack.volume = 0.1;
-          this.refs.soundtrack.play();
-        }
-        console.log(this.state.playMusic);
-        this.refs.soundtrack.muted = this.state.playMusic;
-    },
+
     nextAnimation: function (e) {
         var el = this.refs.buttonNext;
         if(el) {
@@ -38,23 +31,28 @@ var quiz = React.createClass({
         this.props.postScore(this.refs.name.value, this.props.totalScore);
     },
     render: function () {
-        var muteText = this.state.playMusic ? "Play music" : "Mute";
         var instructionClass = this.state.on ? "on" : "";
         instructionClass += " button";
         var options = this.props.currentQuestion.options;
         var radios = options.map(function (option, index) {
-            return (<div><input type="radio" onClick={this.nextAnimation} checked={this.state.answer === "A" + (index + 1)}
-                                 onChange={this.onOptionChanged} name="q1" id={"A" + (index + 1)}
-                                 value={"A" + (index + 1)}/> {option}</div>)
+            return (<div>
+                        <label>
+                            <input 
+                                type="radio" 
+                                onClick={this.nextAnimation} 
+                                checked={this.state.answer === "A" + (index + 1)}
+                                onChange={this.onOptionChanged} 
+                                name="q1" id={'A' + (index + 1)}
+                                value={"A" + (index + 1)}/>
+                                {option}
+                        </label>
+                     </div>)
         }.bind(this));
         return (
 
             <div id="content">
                 <span id="timer"></span>
-                <audio ref="soundtrack" id="soundtrack" muted={this.state.playMusic}>
-                    <source src="Sound/theme.mp3" type="audio/mpeg"/>
-                </audio>
-                <button id="muteSoundButton" onClick={this.onMuteSound}>{muteText}</button>
+                <AudioPlayer />
                 <h2>Quiz</h2>
 
                 <div id="message" className={this.props.correctAnswer ? 'green' : 'red'}>
@@ -69,9 +67,6 @@ var quiz = React.createClass({
                     <p id="timeScore">Time score: {this.props.totalTimeScore}</p>
                     <p value={this.props.totalTimeScore + this.props.points} id="totalScore">Total: {this.props.totalTimeScore + this.props.points}</p>
                 </div>
-
-
-
                 <div id="options">
                     <button id="buttonStart" onClick={this.props.doStuff} className={this.props.gameHasStarted ? 'hidden' : 'visible'}>Start</button>
                     <p>{this.props.currentQuestion.question}</p>
