@@ -13,9 +13,7 @@ var _ = require('lodash');
 module.exports = {
 		doStuff: function(){
 				//Shuffle the questions in random order when the start button is pressed
-				console.log(questionArray);
 				questionArray = _.shuffle(questionArray);
-				console.log(questionArray);
         return {type: 'DO_STUFF' , startTime: new Date().getTime(), questionArray: questionArray};
     },
 		quiz: function(answer){
