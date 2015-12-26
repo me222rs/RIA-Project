@@ -6,13 +6,20 @@ These actions are imported by Redux-aware components who need them, in our case 
 var C = require("./constants");
 Firebase = require("firebase"),
 fb = new Firebase(C.FIREBASE);
+//Gets the questions
+var questionArray = require('./questions');
+var _ = require('lodash');
 
 module.exports = {
-	doStuff: function(){
-        return {type: 'DO_STUFF' , startTime: new Date().getTime()};
+		doStuff: function(){
+				//Shuffle the questions in random order when the start button is pressed
+				console.log(questionArray);
+				questionArray = _.shuffle(questionArray);
+				console.log(questionArray);
+        return {type: 'DO_STUFF' , startTime: new Date().getTime(), questionArray: questionArray};
     },
 		quiz: function(answer){
-        return {type: 'NEXT_QUESTION', answer:answer, startTime: new Date().getTime()};
+        return {type: 'NEXT_QUESTION', answer:answer, startTime: new Date().getTime(), questionArray: questionArray};
     },
 		postScore: function(name, score){
 			//Pushes the score and name to firebase

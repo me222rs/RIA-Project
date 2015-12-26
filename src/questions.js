@@ -1,5 +1,4 @@
-var _ = require('lodash');
-
+//This contains the questions
 var questionArray = [{
     question: "What color is santas clothes?",
     answer: "Correct! They are red & white!",
@@ -58,7 +57,5 @@ var questionArray = [{
     options: ["Liquid nitrogen", "Plutonium", "Helium"],
     answerID: "A3"
 }];
-
-questionArray = _.shuffle(questionArray);
 
 module.exports = questionArray;

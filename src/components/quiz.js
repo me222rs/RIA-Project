@@ -13,11 +13,12 @@ var quiz = React.createClass({
     getInitialState: function () {
         return {on: false, answer: ''};
     },
+    //This triggers an animation when you change your answer
     onOptionChanged: function (e) {
         this.nextAnimation();
         this.setState({answer: e.currentTarget.value});
     },
-
+    //Animation for the Next question button
     nextAnimation: function (e) {
         var el = this.refs.buttonNext;
         if(el) {
@@ -27,6 +28,7 @@ var quiz = React.createClass({
               el.className = " buttonNext";
         }, 500);
     },
+    //Posts the score
     postScore: function(){
         this.props.postScore(this.refs.name.value, this.props.totalScore);
     },

@@ -31,6 +31,7 @@ var Highscore = React.createClass({
     	getInitialState: function() {
         	return {scores: []};
     	},
+      //Gets the highscores
     	componentWillMount: function() {
     			fb.orderByChild("score").on("value",
     			function(snapshot) {

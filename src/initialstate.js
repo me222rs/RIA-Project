@@ -25,8 +25,7 @@ module.exports = function () {
             showPostResult: false,
             correctAnswer: false,
             gameHasStarted: false,
-            hasPostedScore:false,
-            answerOfQuestion: ""
+            hasPostedScore:false
         }
     }
 };
