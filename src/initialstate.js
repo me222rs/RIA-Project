@@ -1,38 +1,31 @@
 /*
-This is the initial state of the Redux Store. I store it in a separate file because I also use
-it in the reducers when we do the Reset action.
+ This is the initial state of the Redux Store. I store it in a separate file because I also use
+ it in the reducers when we do the Reset action.
 
-It returns a function instead of an object to make sure no one can change the initial state.
-*/
+ It returns a function instead of an object to make sure no one can change the initial state.
+ */
 
 var C = require("./constants");
 
-module.exports = function(){
+module.exports = function () {
     return {
         doStuff: {
-            currentValue: "",
-			currentSrcButton1: "https://secure.royalquiz.com/mq/images/lvvrcfqc.jpg",
-			currentSrcButton2: "https://secure.royalquiz.com/mq/images/lvvrcfqc.jpg",
-			currentSrcButton3: "https://secure.royalquiz.com/mq/images/lvvrcfqc.jpg",
-			currentSrcButton4: "https://secure.royalquiz.com/mq/images/lvvrcfqc.jpg"
-		},
-			quiz:{
-				questionValue: "",
-        questionArray: [],
-				question: "",
-				checkedBox: "",
-				questionCount: 1,
-				optionCount: 0,
-				option1: "",
-				option2: "",
-				option3: "",
-				answerCount: 1,
-        points: 0,
-        multiplier: 1,
-        choice:"A3",
-        mute: "Mute sound",
-        data: null,
-        flipped: false
-			}
+            highscoreArray: [],
+        },
+        quiz: {
+            questionValue: "If you pick the correct answer you will get 10 points and if you pick the wrong answer you will lose 10 points.For each correct answer your multiplier will increase which means more points from each question.The multiplier will be reset if you pick an incorrect answer. There is also a penalty in form of negative points if it takes 10 seconds or longer for you to answer.",
+            currentQuestion: {options: []},
+            questionCount: 1,
+            points: 0,
+            multiplier: 1,
+            startTime: 0,
+            endTime: 0,
+            totalTimeScore: 0,
+            totalScore: 0,
+            showPostResult: false,
+            correctAnswer: false,
+            gameHasStarted: false,
+            hasPostedScore:false
+        }
     }
 };

@@ -3,35 +3,29 @@ This module contains action creators. They are functions which will return an ob
 These actions are imported by Redux-aware components who need them, in our case it is just Home.
 */
 
-var constants = require("./constants");
-//Firebase = require("firebase");
-//quotesRef = new Firebase("https://intense-torch-2681.firebaseio.com/").child("question");
+var C = require("./constants");
+Firebase = require("firebase"),
+fb = new Firebase(C.FIREBASE);
+//Gets the questions
+var questionArray = require('./questions');
+var _ = require('lodash');
 
 module.exports = {
-	doStuff: function(){
-        return {type: 'DO_STUFF'};
-    },
-	doMoreStuff: function(){
-        return {type: 'DO_MORE_STUFF'};
-    },
-		button1: function(){
-        return {type: 'BUTTON1'};
-    },
-		button2: function(){
-        return {type: 'BUTTON2'};
-    },
-		button3: function(){
-        return {type: 'BUTTON3'};
-    },
-		button4: function(){
-        return {type: 'BUTTON4'};
+		doStuff: function(){
+				//Shuffle the questions in random order when the start button is pressed
+				questionArray = _.shuffle(questionArray);
+        return {type: 'DO_STUFF' , startTime: new Date().getTime(), questionArray: questionArray};
     },
 		quiz: function(answer){
-        return {type: 'NEXT_QUESTION', answer:answer};
+        return {type: 'NEXT_QUESTION', answer:answer, startTime: new Date().getTime(), questionArray: questionArray};
     },
-		question: function(){
-        return {type: 'QUESTION'};
-    }
-
-
+		postScore: function(name, score){
+			//Pushes the score and name to firebase
+			var myFireRef = new Firebase(C.FIREBASE+"/score");
+			fb.push({
+				name: name,
+				score: score
+			});
+			return{type: 'POST_SCORE', name:name};
+		},
 };

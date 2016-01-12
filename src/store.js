@@ -4,16 +4,14 @@ in our case Home and Hero.
 */
 
 var Redux = require('redux'),
-    doStuffReducer = require('./reducers/doStuff'),
-	quizReducer = require('./reducers/quiz'),
+    highscoreReducer = require('./reducers/highscore'),
+    quizReducer = require('./reducers/quiz'),
     initialState = require('./initialstate');
+    thunk = require('redux-thunk'); // allows us to use asynchronous actions
 
 var reducers = Redux.combineReducers({
-    doStuff: doStuffReducer,
+  doStuff: highscoreReducer,
 	quiz: quizReducer
 });
-
 var store = Redux.createStore(reducers, initialState());
-
 module.exports = store;
-

@@ -1,78 +1,75 @@
 var initialState = require('./../initialstate');
-var _ = require('lodash');
-var QuizReducer = function(state, action){
+var C = require("../constants");
+
+var QuizReducer = function (state, action) {
     var newState = Object.assign({}, state);
 
-
-    switch(action.type){
+    switch (action.type) {
         case 'NEXT_QUESTION':
-        console.log("Question before if: " + newState.questionCount);
-        //console.log("Answer before if: " + newState.answerCount);
+            //This happens if answer is correct
+            if (action.questionArray[newState.questionCount - 1].answerID === action.answer) {
+                newState.correctAnswer = true;
 
-            if(newState.questionArray[newState.questionCount - 1].answerID === action.answer){
+                //Calculating points
+                var questionTime = Math.floor((action.startTime - newState.startTime) / 1000);
+                newState.points += 10 * newState.multiplier;
+                newState.multiplier += 1;
+                newState.questionValue = action.questionArray[newState.questionCount-1].answer+ " (" + ((10 - questionTime)+(10 * (newState.multiplier-1))) + " points.)";
+                newState.totalTimeScore += 10 - questionTime;
 
-              //Calculating points
-              newState.points += 10 * newState.multiplier;
-              newState.multiplier += 1;
+                //Starts the timer
+                newState.startTime = action.startTime;
 
-              //Sets the correct variable
-      				newState.questionValue = "Correct!";
-
-                  //Next question in array
-                  console.log("Question: " + newState.questionCount);
-                  console.log("Length: " + newState.questionArray.length);
-                  if(newState.questionArray.length- 1 >= newState.questionCount){
-              				newState.question = newState.questionArray[newState.questionCount].question;
-
-                      newState.optionCount = 0;
-                      //Next three answers in array
-                      newState.option1 = newState.questionArray[newState.questionCount].options[newState.optionCount];
-              				newState.optionCount += 1;
-
-                      newState.option2 = newState.questionArray[newState.questionCount].options[newState.optionCount];
-              				newState.optionCount += 1;
-
-                      newState.option3 = newState.questionArray[newState.questionCount].options[newState.optionCount];
-              				newState.optionCount += 1;
-
-                      newState.questionCount += 1;
-                    }
-                    else{
-                        newState.questionValue = "Well done! You got " + newState.points + " points";
-                        document.getElementById("buttonNext").style.visibility = "hidden";
-                        document.getElementById("buttonStart").style.visibility = "hidden";
-                    }
-      			}
-      			else{
-              newState.points -= 10;
-              newState.multiplier = 1;
-      				newState.questionValue = "Wrong!";
-      			}
+                //Next question in array
+                if (action.questionArray.length - 1 >= newState.questionCount) {
+                    newState.currentQuestion = action.questionArray[newState.questionCount];
+                    newState.questionCount += 1;
+                }
+                //This happens when game is done
+                else {
+                  newState.gameHasStarted = false;
+                  newState.showPostResult = true;
+                  var totalScore = newState.points + newState.totalTimeScore;
+                  newState.totalScore = totalScore;
+                  newState.questionValue = "Well done! You got " + totalScore + " points!";
+                  newState.hasPostedScore = false;
+                }
+            }
+            //This happens if your answer is incorrect
+            else {
+                newState.correctAnswer = false;
+                newState.points -= 10;
+                newState.multiplier = 1;
+                newState.questionValue = "Wrong!";
+            }
             return newState;
-                case 'DO_STUFF':
-                newState.questionArray = _.shuffle(newState.questionArray);
-                    document.getElementById("buttonStart").style.visibility = "hidden";
-                    document.getElementById("buttonNext").style.visibility = "visible";
-                    newState.question = newState.questionArray[newState.questionCount - 1].question;
 
-                    newState.optionCount = 0;
-                    //Next three answers in array
-                    newState.option1 = newState.questionArray[newState.questionCount - 1].options[newState.optionCount];
-                    newState.optionCount += 1;
+        case 'DO_STUFF':
+            //Sets all valiables to their initial value
+            newState.points = 0;
+            newState.startTime = 0;
+            newState.endTime = 0;
+            newState.questionCount = 1;
+            newState.multiplier = 1;
+            newState.totalTimeScore = 0;
+            newState.gameHasStarted = true;
+            newState.showPostResult = false;
 
-                    newState.option2 = newState.questionArray[newState.questionCount - 1].options[newState.optionCount];
-                    newState.optionCount += 1;
+            //Starts the timer
+            newState.startTime = action.startTime;
+            newState.currentQuestion = action.questionArray[newState.questionCount - 1];
+            return newState;
 
-                    newState.option3 = newState.questionArray[newState.questionCount - 1].options[newState.optionCount];
-                    newState.optionCount += 1;
-                return newState;
+        case 'POST_SCORE':
+          //This happens if the score has been posted
+          if(newState.hasPostedScore === false){
+              newState.showPostResult = false;
+              newState.hasPostedScore = true;
+          }
+            return newState;
         default:
             return state || initialState().quiz;
     }
 };
-
-
-
-
 
 module.exports = QuizReducer;

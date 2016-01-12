@@ -1,82 +1,82 @@
 var React = require('react'),
     ptypes = React.PropTypes,
     ReactRedux = require('react-redux'),
-    actions = require('../actions');
-  var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
+    actions = require('../actions'),
+    AudioPlayer = require('./audioPlayer');
 
 var quiz = React.createClass({
     propTypes: {
-          doStuff: ptypes.func.isRequired,
-          quiz: ptypes.func.isRequired,
-		      change: ptypes.func.isRequired
+        doStuff: ptypes.func.isRequired,
+        quiz: ptypes.func.isRequired,
+        postScore: ptypes.func.isRequired
     },
-    getInitialState: function() {
-      var startQuestion = {question: "blabla?", answer: "bla", options: ["blabla","blablabla", "bla"], answerID: "A3"};
-      var question1 = { question: "Who is the president if the United States?", answer: "Barack Obama", options: ["Angela Merkel","Barack Obama", "David Cameron"], answerID: "A2"};
-      var question2 =  { question: "Do you like cookies?", answer: "Yes", options: ["Yes","No", "Dont know"], answerID: "A1"};
-      var questionArray = [];
-
-      this.props.questionArray = [];
-      this.props.questionArray.push(startQuestion);
-      this.props.questionArray.push(question1);
-      this.props.questionArray.push(question2);
-
-      return {on: false};
+    getInitialState: function () {
+        return {on: false, answer: ''};
     },
-    toggleOnOff: function(e) {
-        this.setState({on: !this.state.on});
+    //This triggers an animation when you change your answer
+    onOptionChanged: function (e) {
+        this.nextAnimation();
+        this.setState({answer: e.currentTarget.value});
     },
-    onOptionChanged: function(e) {
-        this.setState({ answer: e.currentTarget.value });
+    //Animation for the Next question button
+    nextAnimation: function (e) {
+        var el = this.refs.buttonNext;
+        if(el) {
+          el.className += el.className ? ' on' : ' buttonNext';
+        }
+        setTimeout(function() {
+              el.className = " buttonNext";
+        }, 500);
     },
-    onMuteSound: function(){
-      //document.getElementById("soundtrack").volume=0.1;
-        document.getElementById("soundtrack").muted = true;
+    //Posts the score
+    postScore: function(){
+        this.props.postScore(this.refs.name.value, this.props.totalScore);
     },
-
-    render: function(){
-      var text = this.state.on ? "ON" : "OFF";
-      var className = this.state.on ? "on" : "";
-      className += " button";
-      //<div className={className} onClick={this.toggleOnOff}>{text}</div>
-
+    render: function () {
+        var instructionClass = this.state.on ? "on" : "";
+        instructionClass += " button";
+        var options = this.props.currentQuestion.options;
+        var radios = options.map(function (option, index) {
+            return (<div>
+                        <label>
+                            <input
+                                type="radio"
+                                onClick={this.nextAnimation}
+                                checked={this.state.answer === "A" + (index + 1)}
+                                onChange={this.onOptionChanged}
+                                name="q1" id={'A' + (index + 1)}
+                                value={"A" + (index + 1)}/>
+                                {option}
+                        </label>
+                     </div>)
+        }.bind(this));
         return (
 
             <div id="content">
-
-              <audio autoPlay="true" id="soundtrack"><source src="Sound/theme.mp3" type="audio/mpeg"/></audio>
-              <button id="muteSoundButton" onClick={this.onMuteSound}>{this.props.mute}</button>
+                <span id="timer"></span>
+                <AudioPlayer />
                 <h2>Quiz</h2>
-                <div id="instructions">
-                    <p>
-                      If you pick the correct answer you will get 10 points and if you pick the wrong answer you will lose 10 points.
-                      For each correct answer your multiplier will increase which means more points from each question.
-                      The multiplier will be reset if you pick an incorrect answer.
-                    </p>
-              </div>
 
-              <div id="message">
+                <div id="message" className={this.props.correctAnswer ? 'green' : 'red'}>
                     <p>{this.props.questionValue}</p>
-              </div>
+                    <input className={this.props.showPostResult ? 'visible' : 'hidden'} id="postResult" type="text" name="name" ref="name"/>
+                    <button className={this.props.showPostResult ? 'visible' : 'hidden'} id="postResultButton" onClick={this.postScore}>Post</button>
+                </div>
 
-                  <div id="multiplierandpoints">
-                      <p id="points">Points: {this.props.points}</p>
-                      <p id="multiplier">Multiplier x{this.props.multiplier}</p>
-                  </div>
-
-
-
-                  <div id="options">
-                              <p>{this.props.question}</p>
-                        <p>
-                    					<input type="radio" checked={this.state.answer === "A1"} onChange={this.onOptionChanged} name="q1" id="A1" value="A1"/>{this.props.option1}
-                    					<input type="radio" checked={this.state.answer === "A2"} onChange={this.onOptionChanged} name="q1" id="A2" value="A2"/>{this.props.option2}
-                    					<input type="radio" checked={this.state.answer === "A3"} onChange={this.onOptionChanged} name="q1" id="A3" value="A3"/>{this.props.option3}
-
-                              <button id="buttonStart" onClick={this.props.doStuff}>Start</button>
-                              <button id="buttonNext" onClick={this.props.quiz.bind(null, this.state.answer)}>Next question</button>
-                        </p>
-                  </div>
+                <div id="multiplierandpoints">
+                    <p id="points">Points: {this.props.points}</p>
+                    <p id="multiplier">Multiplier x{this.props.multiplier}</p>
+                    <p id="timeScore">Time score: {this.props.totalTimeScore}</p>
+                    <p value={this.props.totalTimeScore + this.props.points} id="totalScore">Total: {this.props.totalTimeScore + this.props.points}</p>
+                </div>
+                <div id="options">
+                    <p>Question {this.props.questionCount}</p>
+                    <button id="buttonStart" onClick={this.props.doStuff} className={this.props.gameHasStarted ? 'hidden' : 'visible'}>New game</button>
+                    <p>{this.props.currentQuestion.question}</p>
+                        {radios}
+                        <button id="buttonNext" ref="buttonNext" className={this.props.gameHasStarted ? ' visible' : ' hidden'} onClick={this.props.quiz.bind(null, this.state.answer)}>Next question
+                        </button>
+                </div>
             </div>
         );
 
@@ -84,21 +84,22 @@ var quiz = React.createClass({
 });
 
 
-var mapStateToProps = function(state){
+var mapStateToProps = function (state) {
     return state.quiz;
 };
 
-var mapDispatchToProps = function(dispatch){
+var mapDispatchToProps = function (dispatch) {
     return {
-        quiz: function(answer){
+        quiz: function (answer) {
             dispatch(actions.quiz(answer));
         },
-		change: function(){
-            dispatch(actions.change());
-        },
-    doStuff: function(){
+        doStuff: function () {
             dispatch(actions.doStuff());
+        },
+        postScore: function (name, score) {
+            dispatch(actions.postScore(name, score));
         }
+
     }
 };
 
