@@ -1,6 +1,6 @@
 var initialState = require('./../initialstate');
 var C = require("../constants");
-
+var _ = require('lodash');
 var QuizReducer = function (state, action) {
     var newState = Object.assign({}, state);
 
@@ -11,7 +11,7 @@ var QuizReducer = function (state, action) {
                 newState.correctAnswer = true;
 
                 //Calculating points
-                var questionTime = Math.floor((action.startTime - newState.startTime) / 1000);
+                var questionTime = _.floor((action.startTime - newState.startTime) / 1000);
                 newState.points += 10 * newState.multiplier;
                 newState.multiplier += 1;
                 newState.questionValue = action.questionArray[newState.questionCount-1].answer+ " (" + ((10 - questionTime)+(10 * (newState.multiplier-1))) + " points.)";
