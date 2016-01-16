@@ -4,8 +4,8 @@ These actions are imported by Redux-aware components who need them, in our case 
 */
 
 var C = require("./constants");
-Firebase = require("firebase"),
-fb = new Firebase(C.FIREBASE);
+var Firebase = require("firebase");
+var fb = new Firebase(C.FIREBASE);
 //Gets the questions
 var questionArray = require('./questions');
 var _ = require('lodash');
