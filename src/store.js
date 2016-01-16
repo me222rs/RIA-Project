@@ -6,7 +6,7 @@ in our case Home and Hero.
 var Redux = require('redux'),
     highscoreReducer = require('./reducers/highscore'),
     quizReducer = require('./reducers/quiz'),
-    initialState = require('./initialstate');
+    initialState = require('./initialstate'),
     thunk = require('redux-thunk'); // allows us to use asynchronous actions
 
 var reducers = Redux.combineReducers({

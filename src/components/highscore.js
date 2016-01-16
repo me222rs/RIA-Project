@@ -3,8 +3,8 @@ var React = require('react'),
     ReactRedux = require('react-redux'),
     actions = require('../actions');
     var C = require("../constants");
-    Firebase = require("firebase"),
-    fb = new Firebase(C.FIREBASE);
+    var Firebase = require("firebase");
+    var fb = new Firebase(C.FIREBASE);
     var _ = require('lodash');
 
     var Scores = React.createClass({

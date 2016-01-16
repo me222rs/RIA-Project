@@ -8,7 +8,7 @@ var React = require('react'),
     IndexRoute = ReactRouter.IndexRoute,
     Wrapper = require('./components/wrapper'),
     Home = require('./components/home'),
-    Highscore = require('./components/highscore');
+    Highscore = require('./components/highscore'),
 	Quiz = require('./components/quiz');
 
 module.exports = (

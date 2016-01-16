@@ -8,7 +8,7 @@ var React = require('react'),
 	Router = require('react-router').Router,
 	Provider = require('react-redux').Provider,
 	store = require('./store'),
-	routes = require('./routes');
+	routes = require('./routes'),
 	actions = require('./actions');
 
 ReactDOM.render(
