@@ -56,6 +56,18 @@ var questionArray = [{
     answer: "You are correct! Helium has the lowest freezing point at -272°C",
     options: ["Liquid nitrogen", "Plutonium", "Helium"],
     answerID: "A3"
+},
+{
+    question: "Nananananananana",
+    answer: "Array(16).join( 'hero'-1) + 'Batman';",
+    options: ["Batman", "Superman", "Kittens"],
+    answerID: "A1"
+},
+{
+    question: "Which is NOT a real web browser",
+    answer: "Array(16).join( 'hero'-1) + 'Batman';",
+    options: ["Opera", "Firefox", "Internet Explorer"],
+    answerID: "A3"
 }];
 
 module.exports = questionArray;

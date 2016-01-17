@@ -33,7 +33,7 @@ var Highscore = React.createClass({
     	},
       //Gets the highscores
     	componentWillMount: function() {
-    			fb.orderByChild("score").on("value",
+    			fb.orderByChild("score").limitToLast(10).on("value",
     			function(snapshot) {
     				var getScores = [];
     				snapshot.forEach(function(childSnapshot){
@@ -54,7 +54,7 @@ var Highscore = React.createClass({
             <div>
               <div id="content">
                 <div id="highscores">
-                <h2>Highscores</h2>
+                <h2>Highscores Top 10</h2>
                     <div id="ScoreDiv">
                       <Scores scores={this.state.scores}/>
                     </div>
